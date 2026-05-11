@@ -1,66 +1,38 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import {
+  HOME_ACTIVITY,
+  HOME_ALERTS,
+  HOME_CONTRACTS,
+  HOME_MODULES,
+  HOME_PULSE,
+  HOME_USER,
+} from "@/mock/home";
+import "@/css/home.css";
+import HomeHeader from "@/components/home/layout/HomeHeader";
+import HomeFooter from "@/components/home/layout/HomeFooter";
+import ModuleHero from "@/components/home/ModuleHero";
+import Heatmap from "@/components/home/Heatmap";
+import PortfolioPulse from "@/components/home/PortfolioPulse";
+import Attention from "@/components/home/Attention";
+import Activity from "@/components/home/Activity";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="home-page">
+      <HomeHeader user={HOME_USER} />
+
+      <ModuleHero modules={HOME_MODULES} />
+
+      <div className="ops-console">
+        <PortfolioPulse p={HOME_PULSE} />
+        <div className="ops-grid">
+          <Heatmap contracts={HOME_CONTRACTS} />
+          <Attention alerts={HOME_ALERTS} />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+
+      <Activity items={HOME_ACTIVITY} />
+
+      <HomeFooter user={HOME_USER} />
     </div>
   );
 }

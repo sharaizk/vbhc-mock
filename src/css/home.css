@@ -1,0 +1,289 @@
+/* ============================ Header overrides ========================== */
+.hdr-period {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  height: 40px;
+  border-radius: 9999px;
+  background: var(--bg-elevated);
+  border: 0.5px solid var(--border-default);
+  box-shadow: var(--shadow-pill);
+}
+.hdr-period .lbl {
+  font: 500 10px/1 var(--font-mono);
+  color: var(--fg-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hdr-period .val {
+  font: 600 12px/1 var(--font-mono);
+  color: var(--fg-primary);
+}
+.hdr-period .ends {
+  font: 500 11px/1 var(--font-mono);
+  color: var(--fg-tertiary);
+}
+.icon-btn.has-dot {
+  position: relative;
+}
+.icon-btn.has-dot .dot {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  background: oklch(0.62 0.18 25);
+  border-radius: 9999px;
+  box-shadow: 0 0 0 2px var(--bg-elevated);
+}
+
+/* Sidebar — make all items clickable in this session */
+.sb-item.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ============================ Page layout =============================== */
+.app-main-home {
+  padding: 88px 56px 56px 144px;
+  max-width: 1680px;
+}
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home-head {
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 4px;
+}
+.home-head h1 {
+  font: 500 32px/40px var(--font-sans);
+  margin: 0;
+  letter-spacing: -0.012em;
+}
+.home-head .desc {
+  max-width: 720px;
+  margin-top: 10px;
+}
+.home-head-meta {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 6px 20px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+  align-self: flex-start;
+}
+.home-head-meta .meta-row {
+  display: contents;
+}
+.home-head-meta .lbl {
+  font: 500 10px/1.2 var(--font-mono);
+  color: var(--fg-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.home-head-meta .val {
+  font: 600 12px/1.2 var(--font-mono);
+  color: var(--fg-primary);
+  text-align: right;
+}
+
+/* ============================ Module Hero ============================== */
+
+/* Small tiles */
+
+/* ============================ Operations Console ======================= */
+.ops-console {
+  position: relative;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-default);
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  margin-top: -8px; /* lift slightly into module hero rhythm */
+}
+
+/* ============================ Pulse — inline strip ===================== */
+.pulse-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  background: linear-gradient(
+    180deg,
+    var(--bg-elevated) 0%,
+    var(--bg-surface) 100%
+  );
+  border-bottom: 0.5px solid var(--border-default);
+}
+.pulse-card {
+  position: relative;
+  padding: 18px 20px;
+  background: transparent;
+  border: 0;
+  border-right: 0.5px solid var(--border-default);
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 132px;
+}
+.pulse-card:last-child {
+  border-right: 0;
+}
+.pulse-card.is-alert {
+  background: color-mix(in oklab, oklch(0.62 0.18 25) 5%, transparent);
+}
+.pulse-card.is-alert::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: oklch(0.55 0.18 25);
+}
+.pulse-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pulse-head .lbl {
+  font: 500 10px/1.3 var(--font-mono);
+  color: var(--fg-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pulse-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font: 600 10px/1 var(--font-mono);
+  padding: 3px 7px 3px 5px;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+.pulse-delta svg {
+  width: 11px;
+  height: 11px;
+}
+.pulse-delta.tier-up {
+  background: color-mix(in oklab, oklch(0.55 0.16 145) 12%, transparent);
+  color: oklch(0.45 0.18 145);
+}
+.pulse-delta.tier-down {
+  background: color-mix(in oklab, oklch(0.55 0.18 25) 12%, transparent);
+  color: oklch(0.5 0.18 25);
+}
+.pulse-delta.tier-flat {
+  background: var(--bg-muted);
+  color: var(--fg-secondary);
+}
+.pulse-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.pulse-value .num {
+  font: 500 32px/1 var(--font-sans);
+  color: var(--fg-primary);
+  letter-spacing: -0.01em;
+}
+.pulse-value .unit {
+  font: 500 13px/1 var(--font-mono);
+  color: var(--fg-tertiary);
+}
+.pulse-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+}
+.pulse-foot .sub {
+  font: 400 11px/14px var(--font-sans);
+  color: var(--fg-secondary);
+}
+.spark {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ============================ Ops grid ================================= */
+.ops-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(360px, 1fr);
+  gap: 0;
+}
+.ops-grid > .att-card {
+  border-left: 0.5px solid var(--border-default);
+}
+
+/* ============================ Heatmap ================================= */
+
+/* ============================ Attention ================================ */
+
+/* ============================ Activity strip =========================== */
+
+
+/* ============================ Footer =================================== */
+.home-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 16px 4px 0;
+  font: 400 11px/1 var(--font-sans);
+  color: var(--fg-tertiary);
+}
+.home-foot code {
+  font: 500 11px/1 var(--font-mono);
+  color: var(--fg-secondary);
+}
+.home-foot .sep {
+  color: var(--border-default);
+}
+
+/* ============================ Responsive =============================== */
+@media (max-width: 1400px) {
+  .pulse-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .pulse-card:nth-child(3n) {
+    border-right: 0;
+  }
+  .ops-grid {
+    grid-template-columns: 1fr;
+  }
+  .ops-grid > .att-card {
+    border-left: 0;
+    border-top: 0.5px solid var(--border-default);
+  }
+
+  .act-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .pulse-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .act-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hm-head {
+    flex-direction: column;
+  }
+  .mh-feat {
+    grid-template-columns: 1fr;
+    grid-template-areas: "tag" "num" "ic" "name" "blurb" "stats" "preview" "cta";
+  }
+}

@@ -1,0 +1,218 @@
+/* ==========================================================================
+   AiQL — Colors & Type
+   Value-Based Healthcare platform. Tokens are extracted from the AiQL
+   Figma file and reflect both LIGHT (default) and DARK surface themes.
+   ========================================================================== */
+
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap"); */
+
+:root {
+  /* ---------- BRAND ----------------------------------------------------- */
+  --aiql-mark-cyan: rgb(0, 255, 255); /* #00FFFF — top of mark */
+  --aiql-mark-magenta: rgb(255, 51, 255); /* #FF33FF — bottom of mark */
+  --aiql-mark-violet: rgb(123, 104, 238); /* #7B68EE — secondary cover orb */
+  --aiql-mark-aqua: rgb(0, 204, 249); /* #00CCF9 — primary cover orb */
+  --aiql-gradient: linear-gradient(
+    135deg,
+    var(--aiql-mark-cyan) 0%,
+    var(--aiql-mark-magenta) 100%
+  );
+  --aiql-gradient-soft: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.18),
+    rgba(255, 51, 255, 0.18)
+  );
+
+  /* ---------- NEUTRALS (light) ----------------------------------------- */
+  --bg-canvas: rgb(244, 244, 242); /* #F4F4F2 page bg */
+  --bg-surface: rgb(252, 252, 252); /* card, modal */
+  --bg-elevated: rgb(250, 250, 249); /* pill, header, sidebar */
+  --bg-muted: rgb(235, 235, 236); /* avatars, chip rest */
+  --border-default: rgb(217, 217, 217); /* hairlines */
+  --border-strong: rgb(161, 161, 170);
+
+  --fg-primary: rgb(10, 10, 12); /* near-black body */
+  --fg-default: rgb(0, 0, 0);
+  --fg-secondary: rgb(106, 106, 107); /* meta, captions */
+  --fg-tertiary: rgb(143, 143, 144);
+  --fg-disabled: rgb(161, 161, 170);
+  --fg-on-accent: rgb(252, 252, 252);
+
+  /* ---------- ACCENT / SEMANTIC ---------------------------------------- */
+  --accent: rgb(62, 145, 219); /* #3E91DB primary blue */
+  --accent-hover: rgb(58, 137, 207);
+  --accent-pressed: rgb(51, 120, 181);
+  --accent-soft: rgba(51, 120, 181, 0.1); /* selected sidebar bg */
+
+  --status-success: rgb(76, 140, 77); /* "stable" green */
+  --status-success-strong: rgb(82, 173, 98);
+  --status-warning: rgb(163, 106, 10); /* amber */
+  --status-warning-strong: rgb(201, 142, 43);
+  --status-danger: rgb(191, 58, 57); /* red */
+
+  /* ---------- ELEVATION ------------------------------------------------- */
+  --shadow-pill: 0px 6px 24px 0px rgba(0, 0, 0, 0.05);
+  --shadow-card:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 6px 24px 0px rgba(0, 0, 0, 0.05);
+  --shadow-popover: 0px 12px 40px 0px rgba(0, 0, 0, 0.1);
+
+  /* ---------- RADII ----------------------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* ---------- SPACING --------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---------- TYPE FAMILIES -------------------------------------------- */
+  --font-sans:
+    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:
+    "DM Mono", "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+  --font-display:
+    "DM Sans", ui-sans-serif, system-ui, sans-serif; /* heavy weights */
+
+  /* ---------- TYPE SCALE (semantic) ------------------------------------ */
+  /* Display — used in cover artwork (128px DM Sans Bold) */
+  --type-display-size: 128px;
+  --type-display-line: 100%;
+  --type-display-weight: 700;
+  --type-display-tracking: -0.02em;
+
+  /* Title — "Workspaces" 32/40 Medium */
+  --type-h1-size: 32px;
+  --type-h1-line: 40px;
+  --type-h1-weight: 500;
+
+  /* Card title — 20/24 Medium */
+  --type-h2-size: 20px;
+  --type-h2-line: 24px;
+  --type-h2-weight: 500;
+
+  /* Body large — 16/20 Regular */
+  --type-body-lg-size: 16px;
+  --type-body-lg-line: 20px;
+  --type-body-lg-weight: 400;
+
+  /* Body — 14/20 Regular (DM Sans) */
+  --type-body-size: 14px;
+  --type-body-line: 20px;
+  --type-body-weight: 400;
+
+  /* UI label / button — 14/20 Medium */
+  --type-label-size: 14px;
+  --type-label-line: 20px;
+  --type-label-weight: 500;
+
+  /* Caption — 12/16 Medium */
+  --type-caption-size: 12px;
+  --type-caption-line: 16px;
+  --type-caption-weight: 500;
+
+  /* Mono / metadata — 10/12 DM Mono */
+  --type-mono-xs-size: 10px;
+  --type-mono-xs-line: 12px;
+  --type-mono-size: 12px;
+  --type-mono-line: 16px;
+  --type-mono-md-size: 14px;
+  --type-mono-md-line: 20px;
+}
+
+/* =============================== DARK ===================================== */
+[data-theme="dark"],
+.theme-dark {
+  --bg-canvas: rgb(14, 14, 16);
+  --bg-surface: rgb(24, 24, 27);
+  --bg-elevated: rgb(39, 39, 42);
+  --bg-muted: rgb(34, 34, 38);
+  --border-default: rgb(34, 34, 38);
+  --border-strong: rgb(63, 63, 70);
+
+  --fg-primary: rgb(250, 250, 249);
+  --fg-default: rgb(255, 255, 255);
+  --fg-secondary: rgb(161, 161, 170);
+  --fg-tertiary: rgb(113, 113, 122);
+  --fg-disabled: rgb(82, 82, 91);
+  --fg-on-accent: rgb(252, 252, 252);
+
+  --shadow-pill: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  --shadow-card:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  --shadow-popover: 0px 12px 40px 0px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================== SEMANTIC HELPERS ============================= */
+html,
+body {
+  font-family: var(--font-sans);
+  color: var(--fg-primary);
+  background: var(--bg-canvas);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+.h1,
+h1.aiql {
+  font: var(--type-h1-weight) var(--type-h1-size) / var(--type-h1-line)
+    var(--font-sans);
+  letter-spacing: -0.01em;
+}
+.h2,
+h2.aiql {
+  font: var(--type-h2-weight) var(--type-h2-size) / var(--type-h2-line)
+    var(--font-sans);
+}
+.body,
+p.aiql {
+  font: var(--type-body-weight) var(--type-body-size) / var(--type-body-line)
+    var(--font-sans);
+  color: var(--fg-secondary);
+}
+.label,
+.button-label {
+  font: var(--type-label-weight) var(--type-label-size) / var(--type-label-line)
+    var(--font-sans);
+}
+.caption {
+  font: var(--type-caption-weight) var(--type-caption-size) /
+    var(--type-caption-line) var(--font-sans);
+  color: var(--fg-secondary);
+}
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-size);
+  line-height: var(--type-mono-line);
+  color: var(--fg-secondary);
+}
+.mono-xs {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-xs-size);
+  line-height: var(--type-mono-xs-line);
+  color: var(--fg-secondary);
+}
+
+/* Dotted grid backdrop used across product surfaces. */
+.aiql-dot-grid {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: 0 0;
+}
+[data-theme="dark"] .aiql-dot-grid,
+.theme-dark .aiql-dot-grid {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px
+  );
+}

@@ -32,6 +32,7 @@ const FAMILIES = [
   { id: "ophth", label: "Ophthalmology", tint: "teal", accent: "#33B8B0" },
   { id: "older", label: "Older Adults", tint: "amber", accent: "#8E6B2A" },
   { id: "addiction", label: "Addiction", tint: "blue", accent: "#3E91DB" },
+  { id: "metabolic", label: "Metabolic", tint: "amber", accent: "#C28F2C" },
 ];
 
 /* PROMs instrument library --------------------------------------------------- */
@@ -939,6 +940,22 @@ const SETS = [
     beneficiaries: 0,
     status: "available",
     deep: "afib",
+  },
+  {
+    id: "ICHOM-049",
+    code: "DIABETES",
+    name: "Diabetes",
+    family: "metabolic",
+    year: 2025,
+    version: "5.1.1",
+    outcomeVars: 0,
+    caseMixVars: 0,
+    proms: ["PROMIS Global Health", "EQ-5D", "Diabetes Distress Scale (DDS)"],
+    timepoints: ["Baseline", "6mo", "12mo", "Annual"],
+    contracts: 0,
+    beneficiaries: 0,
+    status: "available",
+    deep: "diabetes",
   },
 ];
 
@@ -2773,6 +2790,135 @@ const DEEP = {
         name: "BMI",
         type: "Continuous",
         source: "Clinical",
+      },
+    ],
+
+    cohort: {
+      active: 0,
+      withProms: 0,
+      onSurveillance: 0,
+      lastIngestion: "N/A",
+    },
+  },
+
+  diabetes: {
+    summary:
+      "Adults and children with type 1, type 2, gestational, and other forms of diabetes across primary care, endocrinology, and integrated care settings. Tracks glycemic control, acute and chronic complications, treatment burden, quality of life, and long-term cardiovascular and renal outcomes.",
+
+    outcomeVariables: [
+      {
+        code: "OV.GLY.01",
+        name: "HbA1c",
+        domain: "Glycemic Control",
+        unit: "%",
+        source: "Clinical",
+      },
+      {
+        code: "OV.GLY.02",
+        name: "Time in range",
+        domain: "Glycemic Control",
+        unit: "%",
+        source: "CGM",
+      },
+      {
+        code: "OV.ACU.01",
+        name: "Severe hypoglycemia",
+        domain: "Acute Complications",
+        unit: "binary",
+        source: "Clinical",
+      },
+      {
+        code: "OV.ACU.02",
+        name: "Diabetic ketoacidosis",
+        domain: "Acute Complications",
+        unit: "binary",
+        source: "Clinical",
+      },
+      {
+        code: "OV.CHR.01",
+        name: "Chronic kidney disease",
+        domain: "Chronic Complications",
+        unit: "stage",
+        source: "Clinical",
+      },
+      {
+        code: "OV.CHR.02",
+        name: "Retinopathy",
+        domain: "Chronic Complications",
+        unit: "binary",
+        source: "Clinical",
+      },
+      {
+        code: "OV.CHR.03",
+        name: "Cardiovascular disease",
+        domain: "Chronic Complications",
+        unit: "binary",
+        source: "Clinical",
+      },
+      {
+        code: "OV.QOL.01",
+        name: "Health-related quality of life",
+        domain: "Quality of Life",
+        unit: "score",
+        source: "Patient-reported",
+      },
+      {
+        code: "OV.TRB.01",
+        name: "Diabetes distress",
+        domain: "Treatment Burden",
+        unit: "score",
+        source: "Patient-reported",
+      },
+    ],
+
+    caseMixVariables: [
+      {
+        code: "CM.DEM.01",
+        name: "Year of birth",
+        type: "Date",
+        source: "Clinical",
+      },
+      {
+        code: "CM.DEM.02",
+        name: "Sex",
+        type: "Category",
+        source: "Clinical",
+      },
+      {
+        code: "CM.DEM.03",
+        name: "Ethnicity",
+        type: "Category",
+        source: "Patient-reported",
+      },
+      {
+        code: "CM.CLN.01",
+        name: "Diabetes type",
+        type: "Category",
+        source: "Clinical",
+      },
+      {
+        code: "CM.CLN.02",
+        name: "Duration of diabetes",
+        type: "Continuous",
+        source: "Clinical",
+      },
+      {
+        code: "CM.CLN.03",
+        name: "BMI",
+        type: "Continuous",
+        source: "Clinical",
+      },
+      {
+        code: "CM.LIF.01",
+        name: "Smoking status",
+        type: "Category",
+        source: "Patient-reported",
+      },
+      {
+        code: "CM.SOC.01",
+        name: "Level of education",
+        type: "Category",
+        source: "Patient-reported",
       },
     ],
 

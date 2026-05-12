@@ -1,42 +1,4 @@
-/* ============================ Header overrides ========================== */
-.hdr-period {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  height: 40px;
-  border-radius: 9999px;
-  background: var(--bg-elevated);
-  border: 0.5px solid var(--border-default);
-  box-shadow: var(--shadow-pill);
-}
-.hdr-period .lbl {
-  font: 500 10px/1 var(--font-mono);
-  color: var(--fg-tertiary);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.hdr-period .val {
-  font: 600 12px/1 var(--font-mono);
-  color: var(--fg-primary);
-}
-.hdr-period .ends {
-  font: 500 11px/1 var(--font-mono);
-  color: var(--fg-tertiary);
-}
-.icon-btn.has-dot {
-  position: relative;
-}
-.icon-btn.has-dot .dot {
-  position: absolute;
-  top: 9px;
-  right: 10px;
-  width: 7px;
-  height: 7px;
-  background: oklch(0.62 0.18 25);
-  border-radius: 9999px;
-  box-shadow: 0 0 0 2px var(--bg-elevated);
-}
+
 
 /* Sidebar — make all items clickable in this session */
 .sb-item.disabled {

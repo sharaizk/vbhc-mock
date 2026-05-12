@@ -2,7 +2,7 @@
 
 import { Icons } from "@/components/Icons/Icons";
 import Image from "next/image";
-
+import "./styles.css";
 type HeaderProps = {
   user: {
     initials: string;
@@ -53,7 +53,9 @@ export default function Header({ user, theme, onTheme }: HeaderProps) {
           <div className="avi">{user.initials}</div>
           <div>
             <div className="name">{user.name}</div>
-            <div className="role">{user.role.toUpperCase()} · {user.org.split("·")[0].trim()}</div>
+            <div className="role">
+              {user.role.toUpperCase()} · {user.org.split("·")[0].trim()}
+            </div>
           </div>
         </div>
       </div>

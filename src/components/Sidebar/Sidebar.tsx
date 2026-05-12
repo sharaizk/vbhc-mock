@@ -16,6 +16,60 @@ const items = [
     icon: Icons.ichom,
     label: "ICHOM Sets",
   },
+  {
+    id: "/framework",
+    href: "/framework",
+    icon: Icons.framework,
+    label: "Value Framework",
+  },
+  {
+    id: "/org",
+    icon: Icons.org,
+    label: "Organizations",
+    href: "/organizations",
+  },
+  {
+    href: "/contract-designer",
+    id: "contract",
+    icon: Icons.contract,
+    label: "Contracts",
+  },
+
+  {
+    id: "/perf",
+    icon: Icons.perf,
+    label: "Performance",
+    disabled: true,
+    href: "performance",
+  },
+  {
+    href: "/portfolio",
+    id: "portfolio",
+    icon: Icons.portfolio,
+    label: "Portfolio",
+    disabled: true,
+  },
+  {
+    href: "/payment",
+    id: "payment",
+    icon: Icons.payment,
+    label: "Payments",
+    disabled: true,
+  },
+  {
+    href: "/alert",
+    id: "alert",
+    icon: Icons.alert,
+    label: "Alerts",
+    disabled: true,
+  },
+  {
+    href: "/ai",
+    id: "ai",
+    icon: Icons.ai,
+    label: "AiQL Reasoning",
+    disabled: true,
+  },
 ];
 
 export default function Sidebar() {
@@ -24,22 +78,25 @@ export default function Sidebar() {
   return (
     <nav className="sb">
       {items.map((item) => {
-        const isActive =
-          pathname === item.href;
+        const isActive = pathname === item.href;
 
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={
-              "sb-item" +
-              (isActive ? " active" : "")
-            }
+            className={"sb-item" + (isActive ? " active" : "") + (item.disabled ? " disabled" : "")}
           >
             {item.icon}
           </Link>
         );
       })}
+      <div className="sb-divider" />
+      <Link
+        href="/settings"
+        className={"sb-item" + (pathname === "/settings" ? " active" : "")}
+      >
+        {Icons.gear}
+      </Link>
     </nav>
   );
 }

@@ -9,7 +9,16 @@ import {
   VBHC_fmtThreshold,
   S9_ADA_GUIDELINES,
 } from "@/mock/performance";
-import { BoxWhiskerPlot, CollectionFunnel, CostWaterfall, DataHistogram, GroupedBarErrors, ProportionBar, SeverityBar, SpaghettiPlot } from "./Charts2";
+import {
+  BoxWhiskerPlot,
+  CollectionFunnel,
+  CostWaterfall,
+  DataHistogram,
+  GroupedBarErrors,
+  ProportionBar,
+  SeverityBar,
+  SpaghettiPlot,
+} from "./Charts2";
 const { useState: useS9L2State, useMemo: useS9L2Memo } = React;
 
 /* Shared slide-over pattern (same as session 8) */
@@ -76,6 +85,7 @@ function S9SlidePanel({
 
 /* ── Patient mini table ─────────────────────────────────────────────────── */
 function PatientMiniTable({ variable }) {
+  const router = useRouter();
   const patients = Array.from({ length: 20 }, (_, i) => {
     const seed = i * 7 + 100;
     const age = 40 + Math.floor(s9rand(seed, 1) * 35);
@@ -120,8 +130,7 @@ function PatientMiniTable({ variable }) {
             <tr
               key={p.id}
               onClick={() =>
-                window.__toast &&
-                window.__toast("Navigates to Patient Detail (Session 10)")
+                router.push(`/performance/patient-details/${p.id}`)
               }
             >
               <td>

@@ -1,7 +1,13 @@
 import React from "react";
 import { Icons } from "../Icons/Icons";
 import { S11_PATHWAY, S11_REQ_DETAIL } from "@/mock/guideline-adherence";
-import { complianceColor, complianceSoft, gradeColor, gradeSoft } from "@/utils/helpers";
+import {
+  complianceColor,
+  complianceSoft,
+  gradeColor,
+  gradeSoft,
+} from "@/utils/helpers";
+import { useRouter } from "next/navigation";
 const { useState, useMemo } = React;
 
 /* Shared slide-over */
@@ -72,7 +78,7 @@ function S11Panel({
 function L2AEvidenceChain({ open, onClose, requirement }) {
   const [patFilter, setPatFilter] = useState("all");
   const [tab, setTab] = useState("spec");
-
+  const router = useRouter();
   const tabs = [
     { id: "spec", label: "Full Requirement" },
     { id: "ops", label: "Operationalization" },
@@ -496,10 +502,11 @@ function L2AEvidenceChain({ open, onClose, requirement }) {
                   <tr
                     key={p.id}
                     style={{ background: statusStyle.bg, cursor: "pointer" }}
-                    onClick={() =>
-                      window.__toast &&
-                      window.__toast("Navigates to Patient Detail (Session 10)")
-                    }
+                    onClick={() => {
+                      // window.__toast &&
+                      // window.__toast("Navigates to Patient Detail (Session 10)")
+                      router.push(`/performance/patient-details/${p.id}`);
+                    }}
                   >
                     <td>
                       <span className="mono" style={{ fontSize: 10 }}>

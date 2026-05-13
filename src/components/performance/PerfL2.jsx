@@ -19,6 +19,7 @@ import {
   HorizBarChart,
 } from "./Charts";
 import { Icons } from "../Icons/Icons";
+import { useRouter } from "next/navigation";
 const { useState, useEffect, useMemo } = React;
 
 /* ── Shared SlidePanel wrapper ──────────────────────────────────────────── */
@@ -427,6 +428,7 @@ function PanelL2B({
   onOpenLineage,
   onOpenTrace,
 }) {
+  const router = useRouter();
   const [tab, setTab] = useState("spec");
   const tabs = [
     { id: "spec", label: "Specification" },
@@ -907,8 +909,7 @@ function PanelL2B({
                 <tr
                   key={p.id}
                   onClick={() =>
-                    window.__toast &&
-                    window.__toast("Navigates to Patient Detail (Session 10)")
+                    router.push(`/performance/patient-details/${p.id}`)
                   }
                 >
                   <td>

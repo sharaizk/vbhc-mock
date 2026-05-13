@@ -72,13 +72,13 @@ function ModuleHero({ modules }) {
           </span>
         </button>
 
-        {rest.map((m) => (
+        {rest.map((m, index) => (
           <button
             key={m.id}
             className={"mh-tile kind-" + m.kind}
             style={{ "--mod-hue": m.hue }}
           >
-            <span className="mh-tile-num">{m.path}</span>
+            <span className="mh-tile-num">0{index + 1}</span>
             <span className="mh-tile-ic">{MOD_ICON[m.id]}</span>
             <span className="mh-tile-name">{m.name}</span>
             <span className="mh-tile-blurb">{m.blurb}</span>

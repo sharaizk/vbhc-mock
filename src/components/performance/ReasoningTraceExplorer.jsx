@@ -5,6 +5,7 @@ import {
   VBHC_getMeasureRow,
 } from "@/mock/performance";
 import React from "react";
+import { Icons } from "../Icons/Icons";
 const {
   useState: useTrState,
   useMemo: useTrMemo,
@@ -414,7 +415,7 @@ function ReasoningTraceExplorer({
                   placeItems: "center",
                 }}
               >
-                {PerfIcons.close}
+                {Icons.close}
               </button>
             </div>
             <SensitivityDashboard />
@@ -506,7 +507,7 @@ function ExportModal({
               placeItems: "center",
             }}
           >
-            {PerfIcons.close}
+            {Icons.close}
           </button>
         </div>
 

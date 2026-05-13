@@ -95,3 +95,34 @@ export function fmtBeneficiaries(n: number) {
     ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k"
     : n.toString();
 }
+
+export function complianceColor(pct: number) {
+  if (pct == null) return "var(--bg-muted)";
+  if (pct >= 80) return "var(--perf-target)";
+  if (pct >= 60) return "oklch(56% .13 75)";
+  return "var(--perf-floor)";
+}
+export function complianceSoft(pct: number | null) {
+  if (pct == null) return "var(--bg-muted)";
+  if (pct >= 80) return "var(--perf-target-soft)";
+  if (pct >= 60) return "var(--perf-below-soft)";
+  return "var(--perf-floor-soft)";
+}
+export function gradeColor(g: any) {
+  const m: any = {
+    A: "var(--accent)",
+    B: "var(--perf-target)",
+    C: "oklch(56% .13 75)",
+    E: "var(--fg-tertiary)",
+  };
+  return m[g] || "var(--fg-tertiary)";
+}
+export function gradeSoft(g: any) {
+  const m: any = {
+    A: "var(--accent-soft)",
+    B: "var(--perf-target-soft)",
+    C: "var(--perf-below-soft)",
+    E: "var(--bg-elevated)",
+  };
+  return m[g] || "var(--bg-elevated)";
+}

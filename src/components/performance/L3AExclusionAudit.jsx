@@ -1,6 +1,7 @@
 import { S9_COHORT, S9_EXCLUSION_SENSITIVITY, S9_EXCLUSIONS, S9_HISTORICAL, S9_SEASONAL_DATA, S9_STRATIFICATION_AGE, S9_STRATIFICATION_GENDER, S9_VENN } from "@/mock/performance";
 import React from "react";
 import { GroupedBarErrors, VennDiagram } from "./Charts2";
+import { Icons } from "../Icons/Icons";
 const {
   useState: useS9State,
   useMemo: useS9Memo,
@@ -59,7 +60,7 @@ function S9Overlay({ open, onClose, crumb, title, children, headerRight }) {
             flexShrink: 0,
           }}
         >
-          {PerfIcons.close}
+          {Icons.close}
         </button>
         {crumb.map((c, i) => (
           <React.Fragment key={i}>

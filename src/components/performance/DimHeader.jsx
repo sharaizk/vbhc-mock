@@ -12,6 +12,7 @@ import React from "react";
 import { Icons } from "../Icons/Icons";
 import { Sparkline } from "./Charts";
 import { CostWaterfall } from "./Charts2";
+import Link from "next/link";
 const { useState: useL1State, useMemo: useL1Memo } = React;
 
 /* ── Dimension scores for Dr. Fatima, Contract 1, Q4 2025 ──────────────── */
@@ -970,18 +971,13 @@ function DimContextPanel({ dimId }) {
             })}
           </tbody>
         </table>
-        <button
+        <Link
+          href="/performance/guideline-adherence"
           className="btn ghost"
           style={{ marginTop: 8, color: "var(--accent)", fontSize: 11 }}
-          onClick={() =>
-            window.__toast &&
-            window.__toast(
-              "Navigates to Guideline Adherence Detail (Session 11 — Screen 3.4)",
-            )
-          }
         >
-          View Full Guideline Adherence → Screen 3.4 (Session 11)
-        </button>
+          View Full Guideline Adherence
+        </Link>
       </div>,
     );
 

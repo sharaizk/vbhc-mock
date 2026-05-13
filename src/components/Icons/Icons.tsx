@@ -347,4 +347,18 @@ export const Icons = {
       <polyline points="6 9 12 15 18 9" />
     </svg>
   ),
+  txfm: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 8l4 4-4 4" />
+      <path d="M2 12h20" />
+      <path d="M6 16l-4-4 4-4" />
+    </svg>
+  ),
 };

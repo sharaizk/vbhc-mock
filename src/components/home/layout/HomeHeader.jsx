@@ -3,7 +3,7 @@ function HomeHeader({ user }) {
     <div className="page-head home-head">
       <div>
         <div className="crumb">Home · Operational Command Center</div>
-        <h1>Good morning, Hala.</h1>
+        <h1>Good morning, Syed.</h1>
         <p className="desc">
           Five contracts live across the network. Two are below the at-risk
           line; one settlement closes in fourteen days. The headlines are below

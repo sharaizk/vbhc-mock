@@ -333,10 +333,10 @@ const HOME_ACTIVITY = [
 ];
 
 const HOME_USER = {
-  name: "Hala Al-Mansoori",
-  initials: "HM",
+  name: "Syed Zaffer",
+  initials: "SZ",
   role: "Contract Manager",
-  org: "CNHI · Council of National Health Insurance",
+  org: "AiQL",
   period: "Q1 2026 · Jan–Mar",
   periodEnds: "Period closes May 31",
 };

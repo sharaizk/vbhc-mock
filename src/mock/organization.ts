@@ -16,7 +16,7 @@ export const ORGS = [
     contractsSigned: 12,
     livesAttributed: 184_500,
     onboarded: "2023-08-12",
-    pocName: "Brig. Dr. Hala Al-Mansoori",
+    pocName: "Brig. Dr. Syed Zaffer",
     pocRole: "Director, Value-Based Care Division",
     pocEmail: "h.almansoori@mod.gov",
     pocPhone: "+000 11 444 0090",

@@ -19,24 +19,41 @@ type HeaderProps = {
 export default function Header({ user, theme, onTheme }: HeaderProps) {
   return (
     <header className="hdr">
-      <div className="hdr-brand">
-        <Image
-          src="/images/logo-shape-gradient.svg"
-          alt="Logo"
-          width={40}
-          height={40}
-        />
+      <div className="hdr-brand-container">
+        <div className="hdr-brand">
+          <Image
+            src="/images/logo-shape-gradient.svg"
+            alt="Logo"
+            width={40}
+            height={40}
+          />
+        </div>
+
+        <div className="hdr-title-wrap">
+          <h1 className="hdr-title">ValueOS</h1>
+
+          <div className="hdr-powered">
+            <span>by</span>
+
+            <Image
+              src="/images/logo-aiql.png"
+              alt="AIQL"
+              width={42}
+              height={14}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="hdr-actions">
-        <div className="hdr-period">
+        {/* <div className="hdr-period">
           <span className="lbl">Period</span>
           <span className="val">{user.period}</span>
           <span className="ends">· {user.periodEnds}</span>
-        </div>
+        </div> */}
         <div className="hdr-search">
           <span className="glyph">{Icons.search}</span>
-          <input placeholder="Search contracts, providers, patients, measures…" />
+          <input placeholder="Search contract, providers, measures…" />
           <span className="kbd">⌘K</span>
         </div>
 

@@ -122,7 +122,7 @@ const PERSONAS = {
   cnhi: {
     id: "cnhi",
     initials: "HM",
-    name: "Hala Al-Mansoori",
+    name: "Syed Zaffer",
     role: "Contract Manager",
     org: "CNHI",
     color: "var(--accent)",
@@ -289,14 +289,14 @@ const CONTRACTS = [
       {
         status: "draft",
         at: "2025-11-15T09:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment:
           "Created from T-1 template (Diabetes & Depression primary care).",
       },
       {
         status: "in_review",
         at: "2025-11-28T14:22:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment: "Submitting following provider kickoff on 25 Nov.",
       },
       {
@@ -323,7 +323,7 @@ const CONTRACTS = [
     approvalChain: [
       {
         stageId: "cm",
-        name: "Hala Al-Mansoori",
+        name: "Syed Zaffer",
         status: "approved",
         enteredAt: "2025-11-28T14:22:00Z",
         completedAt: "2025-11-29T11:00:00Z",
@@ -429,7 +429,7 @@ const CONTRACTS = [
       {
         status: "draft",
         at: "2026-03-01T10:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment: "Created from T-2 Hip & Knee OA surgical bundle template.",
       },
     ],
@@ -546,14 +546,14 @@ const CONTRACTS = [
       {
         status: "draft",
         at: "2026-02-10T08:30:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment:
           "Asir region maternal health pilot — first PREG-Set contract for MOD network.",
       },
       {
         status: "in_review",
         at: "2026-03-01T09:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment:
           "Submitting for review. Provider sign-off obtained from AFHSR Medical Director.",
       },
@@ -561,7 +561,7 @@ const CONTRACTS = [
     approvalChain: [
       {
         stageId: "cm",
-        name: "Hala Al-Mansoori",
+        name: "Syed Zaffer",
         status: "approved",
         enteredAt: "2026-03-01T09:00:00Z",
         completedAt: "2026-03-02T14:00:00Z",
@@ -732,13 +732,13 @@ const CONTRACTS = [
       {
         status: "draft",
         at: "2023-10-15T09:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment: "CAD network contract created.",
       },
       {
         status: "in_review",
         at: "2023-11-20T14:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment: "Submitting for review.",
       },
       {
@@ -873,7 +873,7 @@ const CONTRACTS = [
       {
         status: "amendment",
         at: "2026-05-01T09:00:00Z",
-        by: "Hala Al-Mansoori",
+        by: "Syed Zaffer",
         comment:
           "Amendment initiated: add Low Back Pain ICHOM Set + rebalance D5/D7 weights.",
       },

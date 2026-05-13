@@ -14,7 +14,7 @@ const MOD_ICON = {
 
 function ModuleHero({ modules }) {
   const featured = modules.find((m) => m.primary);
-  const rest = modules.filter((m) => !m.primary);
+  const rest = [...modules];
 
   // tiny sparkline preview for the featured tile
   const featuredHist = [76.5, 78.0, 79.2, 80.9, 72.4, 67.3, 76.1, 64.7];

@@ -217,16 +217,6 @@ const HOME_ALERTS = [
 
 const HOME_MODULES = [
   {
-    id: "sys",
-    name: "System Configuration",
-    blurb: "ICHOM Sets, Value Framework, Data Sources",
-    metric: "46 Sets · 10 dims",
-    path: "01",
-    hue: 250,
-    kind: "setup",
-    sub: "Last sync 2h ago",
-  },
-  {
     id: "con",
     name: "Contract Management",
     blurb: "Design, manage, compare and version live contracts.",
@@ -237,6 +227,17 @@ const HOME_MODULES = [
     primary: true,
     sub: "PSMMC settlement due in 14d",
   },
+  {
+    id: "sys",
+    name: "VBHC Organization Management",
+    blurb: "ICHOM Sets, Value Framework, Data Sources",
+    metric: "46 Sets · 10 dims",
+    path: "01",
+    hue: 250,
+    kind: "setup",
+    sub: "Last sync 2h ago",
+  },
+
   {
     id: "prv",
     name: "Provider Performance",

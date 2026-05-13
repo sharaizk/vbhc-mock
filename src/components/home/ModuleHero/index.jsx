@@ -27,7 +27,7 @@ function ModuleHero({ modules }) {
       </div>
 
       <div className="mh-grid">
-        <button className="mh-feat" style={{ "--mod-hue": featured.hue }}>
+        {/* <button className="mh-feat" style={{ "--mod-hue": featured.hue }}>
           <span className="mh-feat-tag">
             <span className="mh-feat-dot" />
             Primary action · this period
@@ -70,7 +70,7 @@ function ModuleHero({ modules }) {
           <span className="mh-feat-cta">
             Open Contract Management {Icons.arrowR}
           </span>
-        </button>
+        </button> */}
 
         {rest.map((m, index) => (
           <button

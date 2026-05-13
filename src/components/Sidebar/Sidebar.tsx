@@ -29,12 +29,23 @@ const items = [
     href: "/organizations",
   },
   {
-    href: "/contract-designer",
-    id: "contract",
+    href: "/contracts",
+    id: "contracts",
     icon: Icons.contract,
     label: "Contracts",
   },
-
+  {
+    href: "/contract-setup",
+    id: "setup",
+    icon: Icons.setup,
+    label: "Contract Setup",
+  },
+  {
+    href: "/contract-finance",
+    id: "finance",
+    icon: Icons.finance,
+    label: "Finance & Attribution",
+  },
   {
     id: "/perf",
     icon: Icons.perf,
@@ -84,7 +95,11 @@ export default function Sidebar() {
           <Link
             key={item.href}
             href={item.href}
-            className={"sb-item" + (isActive ? " active" : "") + (item.disabled ? " disabled" : "")}
+            className={
+              "sb-item" +
+              (isActive ? " active" : "") +
+              (item.disabled ? " disabled" : "")
+            }
           >
             {item.icon}
           </Link>

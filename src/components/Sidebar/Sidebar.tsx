@@ -10,12 +10,14 @@ const items = [
     href: "/",
     icon: Icons.home,
     label: "Home",
+    disabled: false,
   },
   {
     id: "/value-framework",
     href: "/value-framework",
     icon: Icons.framework,
     label: "Value Framework",
+    disabled: false,
   },
   // {
   //   href: "/ichom",
@@ -28,64 +30,63 @@ const items = [
     icon: Icons.org,
     label: "Organizations",
     href: "/organizations",
+    disabled: false,
   },
   {
     href: "/contracts",
     id: "contracts",
     icon: Icons.contract,
     label: "Contracts",
+    disabled: false,
   },
   {
     href: "/contract-setup",
     id: "setup",
     icon: Icons.setup,
     label: "Contract Setup",
+    disabled: false,
   },
   {
     href: "/contract-finance",
     id: "finance",
     icon: Icons.finance,
     label: "Finance & Attribution",
+    disabled: false,
   },
-  // {
-  //   href: "/transformation",
-  //   id: "txfm",
-  //   icon: Icons.txfm,
-  //   label: "Transformation",
-  // },
   {
     id: "/perf",
     icon: Icons.perf,
     label: "Performance",
     href: "/performance",
+    disabled: false,
   },
   {
     href: "/portfolio",
     id: "portfolio",
     icon: Icons.portfolio,
     label: "Portfolio",
-    disabled: true,
+    disabled: false,
   },
   {
     href: "/payment",
     id: "payment",
     icon: Icons.payment,
     label: "Payments",
-    disabled: true,
+    disabled: false,
   },
   {
     href: "/alert",
     id: "alert",
     icon: Icons.alert,
     label: "Alerts",
-    disabled: true,
+    disabled: false,
   },
   {
     href: "/ai",
     id: "ai",
     icon: Icons.ai,
     label: "AiQL Reasoning",
-    disabled: true,
+    disabled: false,
   },
 ];
 
@@ -106,6 +107,7 @@ export default function Sidebar() {
               (isActive ? " active" : "") +
               (item.disabled ? " disabled" : "")
             }
+            data-label={item.label}
           >
             {item.icon}
           </Link>
@@ -114,6 +116,7 @@ export default function Sidebar() {
       <div className="sb-divider" />
       <Link
         href="/settings"
+        data-label={"Settings"}
         className={"sb-item" + (pathname === "/settings" ? " active" : "")}
       >
         {Icons.gear}

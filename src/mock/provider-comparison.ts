@@ -842,4 +842,5 @@ export {
   S12_PEER_SCENARIOS,
   S12_HOMOGENEITY,
   funnelLimits,
+  S12_TIER_MOVEMENTS
 };

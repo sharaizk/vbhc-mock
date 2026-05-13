@@ -5,6 +5,7 @@ import {
 } from "@/mock/s8b-data";
 import React from "react";
 import { FullOverlay, NodeDiagram, NodeInspector } from "./FullOverlay";
+import { VBHC_fmtScore, VBHC_getMeasureRow, VBHC_getStatus, VBHC_MEASURES_C1, VBHC_PERIODS } from "@/mock/performance";
 const {
   useState: useL3bcState,
   useMemo: useL3bcMemo,
@@ -323,6 +324,8 @@ function L3BLineage({ open, onClose, measure }) {
    L3-C  Score Approval & Lock Workflow
    ══════════════════════════════════════════════════════════════════════════ */
 function L3CApproval({ open, onClose, provider, contract, periodIdx, role }) {
+  if (!open) return null;
+
   const [tab, setTab] = useL3bcState("checklist");
   const [approvalStates, setApprovalStates] = useL3bcState(() => ({
     ...S8B_APPROVAL_STATES,
@@ -336,7 +339,6 @@ function L3CApproval({ open, onClose, provider, contract, periodIdx, role }) {
   const [confirmOpen, setConfirmOpen] = useL3bcState(null);
   const [selected, setSelected] = useL3bcState(new Set());
 
-  if (!open) return null;
   const canApprove = role === "manager" || role === "analyst";
 
   const measures = VBHC_MEASURES_C1;

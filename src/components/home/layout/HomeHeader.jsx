@@ -2,7 +2,7 @@ function HomeHeader({ user }) {
   return (
     <div className="page-head home-head">
       <div>
-        <div className="crumb">Home · Operational Command Center</div>
+        <div className="crumb">Home · Value Command Center</div>
         <h1>Good morning, Syed.</h1>
         <p className="desc">
           Five contracts live across the network. Two are below the at-risk
@@ -17,7 +17,7 @@ function HomeHeader({ user }) {
         </div>
         <div className="meta-row">
           <span className="lbl">Org</span>
-          <span className="val">CNHI</span>
+          <span className="val">AiQL</span>
         </div>
         <div className="meta-row">
           <span className="lbl">Period</span>

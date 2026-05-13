@@ -234,10 +234,10 @@ select {
 .sb {
   position: fixed;
   top: 50%;
-  left: 20px;
+  left: 32px;
   transform: translateY(-50%);
-  width: 48px;
-  padding: 8px 0;
+  width: 56px;
+  padding: 10px 0;
   background: var(--bg-elevated);
   border: 0.5px solid var(--border-default);
   border-radius: 9999px;
@@ -245,12 +245,12 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   z-index: 40;
 }
 .sb-item {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   border-radius: 9999px;
@@ -269,30 +269,32 @@ select {
   color: var(--accent);
 }
 .sb-item.disabled {
-  opacity: 0.3;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 .sb-item svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 .sb-divider {
-  width: 20px;
+  width: 24px;
   height: 0.5px;
   background: var(--border-default);
-  margin: 2px 0;
+  margin: 4px 0;
 }
+
+/* Tooltip on sidebar */
 .sb-item[data-label]:hover::after {
   content: attr(data-label);
   position: absolute;
-  left: 46px;
+  left: 52px;
   top: 50%;
   transform: translateY(-50%);
   background: var(--fg-primary);
   color: var(--bg-surface);
-  font: 500 10px/1 var(--font-mono);
+  font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.04em;
-  padding: 5px 9px;
+  padding: 6px 10px;
   border-radius: 6px;
   white-space: nowrap;
   z-index: 100;
@@ -1150,75 +1152,6 @@ select {
   color: var(--fg-tertiary);
   margin-top: 2px;
   letter-spacing: 0.04em;
-}
-
-/* Sidebar ------------------------------------------------------------------ */
-.sb {
-  position: fixed;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  width: 48px;
-  padding: 8px 0;
-  background: var(--bg-elevated);
-  border: 0.5px solid var(--border-default);
-  border-radius: 9999px;
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  z-index: 40;
-}
-.sb-item {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 9999px;
-  cursor: pointer;
-  position: relative;
-  color: var(--fg-secondary);
-  background: transparent;
-  border: 0;
-}
-.sb-item:hover {
-  background: var(--bg-muted);
-  color: var(--fg-primary);
-}
-.sb-item.active {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-.sb-item.disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-.sb-item svg {
-  width: 16px;
-  height: 16px;
-}
-.sb-divider {
-  width: 20px;
-  height: 0.5px;
-  background: var(--border-default);
-  margin: 2px 0;
-}
-.sb-item[data-label]:hover::after {
-  content: attr(data-label);
-  position: absolute;
-  left: 46px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--fg-primary);
-  color: var(--bg-surface);
-  font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  padding: 5px 9px;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 100;
-  pointer-events: none;
 }
 
 /* Buttons / chips ---------------------------------------------------------- */

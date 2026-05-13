@@ -4,13 +4,14 @@ import {
   S10_PATIENTS,
   S10_TIMELINE,
   S10_ICHOM_TIMEPOINTS,
-  S10_ENCOUNTER_DEFAULT
+  S10_ENCOUNTER_DEFAULT,
 } from "@/mock/patient-details";
 import React from "react";
 import { CrossSetSummary, PatientHeader, setColor } from "./PatientHeader";
 import { ClinicalTimeline, TimelineLegend } from "./TimelineLegend";
 import { L2ASetDetail, L2BEncounter, L2CCostProfile } from "./L2ASetDetail";
 import { L3AAttribution, L3BRecordAbstraction } from "./L3AAttribution";
+import Link from "next/link";
 const { useState, useMemo, useEffect } = React;
 
 function PatientDetailView() {
@@ -52,12 +53,12 @@ function PatientDetailView() {
           color: "var(--fg-tertiary)",
         }}
       >
-        <a
-          href="../session-8/index.html"
+        <Link
+          href="/performance"
           style={{ color: "var(--accent)", textDecoration: "none" }}
         >
           ← Dashboard
-        </a>
+        </Link>
         <span>›</span>
         <span style={{ color: "var(--fg-secondary)" }}>
           Dr. Fatima Al-Khalil

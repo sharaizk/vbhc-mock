@@ -57,8 +57,7 @@ const items = [
     id: "/perf",
     icon: Icons.perf,
     label: "Performance",
-    disabled: true,
-    href: "performance",
+    href: "/performance",
   },
   {
     href: "/portfolio",

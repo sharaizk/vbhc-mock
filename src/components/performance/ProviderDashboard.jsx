@@ -12,6 +12,7 @@ import { PanelL2A, PanelL2B, PanelL2C } from "./PerfL2";
 import L3AMethodology from "./L3AMethodology";
 import { L3BLineage, L3CApproval } from "./L3BLineage";
 import ReasoningTraceExplorer from "./ReasoningTraceExplorer";
+import { useRouter } from "next/navigation";
 const { useEffect, useMemo } = React;
 
 function Toast({ message, visible }) {
@@ -78,6 +79,7 @@ function ProviderDashboard({ role }) {
   const [l2, setL2] = useState(null);
   const [l3, setL3] = useState(null); // {type:"methodology"|"lineage"|"approval"|"trace", measure?}
   const [toast, setToast] = useState({ msg: "", visible: false });
+  const router = useRouter();
 
   const provider = useMemo(
     () => VBHC_PROVIDERS.find((p) => p.id === providerId) || VBHC_PROVIDERS[0],
@@ -143,7 +145,7 @@ function ProviderDashboard({ role }) {
     }
   }
   function handleAxisClick(ax) {
-    window.location.href = `../session-9/index.html#dim=${ax.short}`;
+    router.push(`/performance/${ax.short?.toLowerCase()}`);
   }
   function handleWaterfallDimClick(dimKey) {
     if (dimKey === "risk") {

@@ -1258,6 +1258,888 @@ function getAlerts(provider: any) {
   ];
 }
 
+/* ============================================================================
+   ValueOS — Session 9: Dimension Deep-Dive — Synthetic Data
+   ============================================================================ */
+
+/* ── Seeded helpers ──────────────────────────────────────────────────────── */
+function s9rand(a: any, b: any) {
+  const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
+function s9gaussian(mean: any, sd: any, seed: any) {
+  const u1 = Math.max(1e-6, s9rand(seed, seed + 1));
+  const u2 = s9rand(seed + 2, seed + 3);
+  return mean + sd * Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+function s9genContinuous(
+  mean: any,
+  sd: any,
+  n: any,
+  seed: any,
+  minVal: any,
+  maxVal: any,
+) {
+  return Array.from(
+    { length: n },
+    (_, i) =>
+      Math.round(
+        Math.max(minVal, Math.min(maxVal, s9gaussian(mean, sd, seed + i))) * 10,
+      ) / 10,
+  );
+}
+
+/* ── Dimension definitions ───────────────────────────────────────────────── */
+const S9_DIMENSIONS = {
+  D1: {
+    name: "Clinical Outcomes",
+    short: "Clinical",
+    color: "#3E91DB",
+    def: "Disease-specific endpoints, biomarkers, complications, and survival. Defined entirely by ICHOM Standard Sets.",
+  },
+  D2: {
+    name: "Patient-Reported Outcomes",
+    short: "PROMs",
+    color: "#7B68EE",
+    def: "Patient-completed instruments measuring function, symptoms, and health-related quality of life (HRQoL).",
+  },
+  D3: {
+    name: "Patient Experience",
+    short: "Experience",
+    color: "#D34F8E",
+    def: "Patient perception of care quality, respect, shared decision-making, and care coordination.",
+  },
+  D4: {
+    name: "Safety & Harm Prevention",
+    short: "Safety",
+    color: "#BF3A39",
+    def: "Healthcare-associated infections, medication errors, adverse events, falls, and never events.",
+  },
+  D5: {
+    name: "Process Quality",
+    short: "Process",
+    color: "#C28F2C",
+    def: "Adherence to evidence-based clinical guidelines, care pathways, screening protocols, and best practices.",
+  },
+  D6: {
+    name: "Access & Timeliness",
+    short: "Access",
+    color: "#4C8C4D",
+    def: "Wait times, appointment availability, referral completion rates, and geographic access to care.",
+  },
+  D7: {
+    name: "Cost & Utilization",
+    short: "Cost",
+    color: "#228BA0",
+    def: "Total cost of care per attributed patient, ED visits, inpatient admissions, readmissions, and generic prescribing.",
+  },
+  D8: {
+    name: "Care Coordination",
+    short: "Coordination",
+    color: "#8B6FF0",
+    def: "Transitions of care, care plan completeness, inter-provider communication, and post-discharge follow-up.",
+  },
+  D9: {
+    name: "Health Equity",
+    short: "Equity",
+    color: "#9B7B3A",
+    def: "Outcome variation across demographic, geographic, and socioeconomic subgroups.",
+  },
+  D10: {
+    name: "Data Quality",
+    short: "Data Quality",
+    color: "#6B8CA8",
+    def: "Completeness, timeliness, conformance, and plausibility of all reported data elements.",
+  },
+};
+
+/* ── ICHOM Sets active in Contract 1 D1 ─────────────────────────────────── */
+const S9_ICHOM_SETS_D1 = [
+  {
+    id: "ICHOM-006",
+    code: "T2DM",
+    name: "Type 2 Diabetes",
+    family: "Endocrine & Metabolic",
+    familyColor: "#3E91DB",
+    outcomeVars: 12,
+    score: 91.2,
+    target: 75,
+    completeness: 94,
+    trend: +2.1,
+    period: "Q4 2025",
+    variables: [
+      {
+        id: "OV1",
+        code: "LOINC 4548-4",
+        name: "HbA1c Level",
+        type: "continuous",
+        unit: "%",
+        mean: 7.4,
+        sd: 1.8,
+        target: 7.0,
+        targetDir: "lower",
+        n: 340,
+        values: s9genContinuous(7.4, 1.8, 50, 101, 4.5, 14.0),
+      },
+      {
+        id: "OV2",
+        code: "LOINC 2089-1",
+        name: "LDL Cholesterol",
+        type: "continuous",
+        unit: "mg/dL",
+        mean: 108,
+        sd: 32,
+        target: 100,
+        targetDir: "lower",
+        n: 328,
+        values: s9genContinuous(108, 32, 50, 201, 40, 250),
+      },
+      {
+        id: "OV3",
+        code: "LOINC 8480-6",
+        name: "Systolic Blood Pressure",
+        type: "continuous",
+        unit: "mmHg",
+        mean: 136,
+        sd: 18,
+        target: 140,
+        targetDir: "lower",
+        n: 340,
+        values: s9genContinuous(136, 18, 50, 301, 90, 200),
+      },
+      {
+        id: "OV4",
+        code: "SNOMED 60621009",
+        name: "Body Mass Index",
+        type: "continuous",
+        unit: "kg/m²",
+        mean: 31.4,
+        sd: 5.2,
+        target: null,
+        targetDir: null,
+        n: 340,
+        values: s9genContinuous(31.4, 5.2, 50, 401, 18, 55),
+      },
+      {
+        id: "OV5",
+        code: "LOINC 48642-3",
+        name: "eGFR",
+        type: "continuous",
+        unit: "mL/min",
+        mean: 72,
+        sd: 22,
+        target: 60,
+        targetDir: "higher",
+        n: 330,
+        values: s9genContinuous(72, 22, 50, 501, 15, 120),
+      },
+      {
+        id: "OV6",
+        code: "SNOMED 252779009",
+        name: "Retinopathy Screening",
+        type: "categorical",
+        unit: "%",
+        rate: 71.2,
+        target: 75,
+        targetDir: "higher",
+        n: 340,
+        ci: [66.1, 76.0],
+      },
+      {
+        id: "OV7",
+        code: "SNOMED 401191002",
+        name: "Annual Foot Exam",
+        type: "categorical",
+        unit: "%",
+        rate: 68.5,
+        target: 80,
+        targetDir: "higher",
+        n: 340,
+        ci: [63.3, 73.3],
+      },
+      {
+        id: "OV8",
+        code: "SNOMED 713378007",
+        name: "Diabetes Complications",
+        type: "categorical",
+        unit: "%",
+        rate: 6.8,
+        target: 8,
+        targetDir: "lower",
+        n: 340,
+        ci: [4.4, 9.9],
+      },
+      {
+        id: "OV9",
+        code: "SNOMED 302866003",
+        name: "Hypoglycaemic Events",
+        type: "categorical",
+        unit: "%",
+        rate: 3.2,
+        target: 5,
+        targetDir: "lower",
+        n: 340,
+        ci: [1.7, 5.5],
+      },
+      {
+        id: "OV10",
+        code: "SNOMED 16208003",
+        name: "Statin Adherence",
+        type: "categorical",
+        unit: "%",
+        rate: 78.9,
+        target: 80,
+        targetDir: "higher",
+        n: 312,
+        ci: [73.9, 83.3],
+      },
+      {
+        id: "OV11",
+        code: "SNOMED 372733002",
+        name: "ACE/ARB Therapy",
+        type: "categorical",
+        unit: "%",
+        rate: 82.3,
+        target: 80,
+        targetDir: "higher",
+        n: 96,
+        ci: [73.4, 89.1],
+      },
+      {
+        id: "OV12",
+        code: "SNOMED 225323000",
+        name: "Smoking Cessation",
+        type: "categorical",
+        unit: "%",
+        rate: 64.7,
+        target: 75,
+        targetDir: "higher",
+        n: 51,
+        ci: [50.1, 77.6],
+      },
+    ],
+  },
+  {
+    id: "ICHOM-017",
+    code: "DEPA",
+    name: "Depression & Anxiety",
+    family: "Mental Health",
+    familyColor: "#9C7BD9",
+    outcomeVars: 8,
+    score: 72.4,
+    target: 75,
+    completeness: 78,
+    trend: +0.8,
+    period: "Q4 2025",
+    variables: [
+      {
+        id: "DP1",
+        code: "LOINC 44261-6",
+        name: "PHQ-9 Score",
+        type: "proms",
+        unit: "pts",
+        mean: 10.8,
+        sd: 6.2,
+        target: 10,
+        targetDir: "lower",
+        n: 310,
+        values: s9genContinuous(10.8, 6.2, 50, 601, 0, 27),
+        severity: [
+          { label: "None (0–4)", pct: 22, color: "var(--perf-target)" },
+          { label: "Mild (5–9)", pct: 34, color: "oklch(62% .12 82)" },
+          { label: "Moderate (10–14)", pct: 28, color: "var(--perf-below)" },
+          { label: "Mod-Severe (15–19)", pct: 12, color: "var(--perf-floor)" },
+          { label: "Severe (20–27)", pct: 4, color: "oklch(45% .2 25)" },
+        ],
+      },
+      {
+        id: "DP2",
+        code: "LOINC 69737-5",
+        name: "GAD-7 Score",
+        type: "proms",
+        unit: "pts",
+        mean: 8.4,
+        sd: 5.1,
+        target: 8,
+        targetDir: "lower",
+        n: 310,
+        values: s9genContinuous(8.4, 5.1, 50, 701, 0, 21),
+        severity: [
+          { label: "None (0–4)", pct: 30, color: "var(--perf-target)" },
+          { label: "Mild (5–9)", pct: 38, color: "oklch(62% .12 82)" },
+          { label: "Moderate (10–14)", pct: 22, color: "var(--perf-below)" },
+          { label: "Severe (15–21)", pct: 10, color: "var(--perf-floor)" },
+        ],
+      },
+      {
+        id: "DP3",
+        code: "SNOMED 406191006",
+        name: "Depression Remission",
+        type: "categorical",
+        unit: "%",
+        rate: 32.6,
+        target: 35,
+        targetDir: "higher",
+        n: 149,
+        ci: [25.1, 40.8],
+      },
+      {
+        id: "DP4",
+        code: "SNOMED 225415001",
+        name: "Depression Response",
+        type: "categorical",
+        unit: "%",
+        rate: 48.3,
+        target: 45,
+        targetDir: "higher",
+        n: 149,
+        ci: [40.1, 56.5],
+      },
+      {
+        id: "DP5",
+        code: "SNOMED 308471009",
+        name: "Treatment Initiation",
+        type: "categorical",
+        unit: "%",
+        rate: 76.8,
+        target: 80,
+        targetDir: "higher",
+        n: 310,
+        ci: [71.6, 81.4],
+      },
+      {
+        id: "DP6",
+        code: "SNOMED 390825006",
+        name: "Follow-up Within 14d",
+        type: "categorical",
+        unit: "%",
+        rate: 62.4,
+        target: 70,
+        targetDir: "higher",
+        n: 238,
+        ci: [56.0, 68.5],
+      },
+      {
+        id: "DP7",
+        code: "SNOMED 182836005",
+        name: "Medication Adherence",
+        type: "categorical",
+        unit: "%",
+        rate: 54.8,
+        target: 60,
+        targetDir: "higher",
+        n: 238,
+        ci: [48.2, 61.3],
+      },
+      {
+        id: "DP8",
+        code: "LOINC 72133-2",
+        name: "EQ-5D Functional Improvement",
+        type: "continuous",
+        unit: "change",
+        mean: 0.04,
+        sd: 0.12,
+        target: 0.05,
+        targetDir: "higher",
+        n: 149,
+        values: s9genContinuous(0.04, 0.12, 50, 801, -0.4, 0.5),
+      },
+    ],
+  },
+];
+
+/* ── ICHOM Sets active in Contract 1 D2 (PROMs dimension) ───────────────── */
+const S9_ICHOM_SETS_D2 = [
+  {
+    id: "D2-T2DM",
+    code: "T2DM-PROMs",
+    name: "Type 2 Diabetes PROMs",
+    family: "Endocrine & Metabolic",
+    familyColor: "#3E91DB",
+    score: 87.4,
+    target: 75,
+    completeness: 77,
+    trend: +1.4,
+    period: "Q4 2025",
+    promsInstruments: ["PROMIS-29", "PHQ-9", "WHO-5"],
+    collectionByTimepoint: [
+      { label: "Baseline", pct: 89 },
+      { label: "3 months", pct: 74 },
+      { label: "6 months", pct: 63 },
+      { label: "12 months", pct: 52 },
+    ],
+  },
+  {
+    id: "D2-DEPA",
+    code: "DEPA-PROMs",
+    name: "Depression & Anxiety PROMs",
+    family: "Mental Health",
+    familyColor: "#9C7BD9",
+    score: 72.1,
+    target: 75,
+    completeness: 66,
+    trend: +0.6,
+    period: "Q4 2025",
+    promsInstruments: ["PHQ-9", "GAD-7", "WHO-5", "EQ-5D-5L"],
+    collectionByTimepoint: [
+      { label: "Baseline", pct: 78 },
+      { label: "3 months", pct: 63 },
+      { label: "6 months", pct: 52 },
+      { label: "12 months", pct: 44 },
+    ],
+  },
+];
+
+/* ── PROMs collection funnel ────────────────────────────────────────────── */
+const S9_PROMS_FUNNEL = [
+  {
+    label: "Eligible patients",
+    n: 340,
+    pct: 100,
+    note: "Full attributed panel",
+  },
+  {
+    label: "Invited to complete PROMs",
+    n: 328,
+    pct: 96.5,
+    note: "12 opted out or language barrier",
+  },
+  {
+    label: "Started instrument",
+    n: 298,
+    pct: 87.6,
+    note: "30 did not start after invitation",
+  },
+  {
+    label: "Completed at baseline",
+    n: 265,
+    pct: 78.0,
+    note: "33 started but did not complete",
+  },
+  {
+    label: "Completed at 3 months",
+    n: 214,
+    pct: 63.0,
+    note: "51 attrited between baseline and 3mo",
+  },
+  {
+    label: "Completed at 6 months",
+    n: 178,
+    pct: 52.4,
+    note: "36 attrited between 3mo and 6mo",
+  },
+  {
+    label: "Completed at 12 months",
+    n: 149,
+    pct: 43.8,
+    note: "29 attrited between 6mo and 12mo",
+  },
+];
+
+const S9_FUNNEL_DROPOUT = [
+  {
+    stage: "Baseline → 3mo",
+    n: 51,
+    age: 53.2,
+    malePct: 64,
+    charlson: 2.9,
+    baselinePHQ: 13.8,
+  },
+  {
+    stage: "3mo → 6mo",
+    n: 36,
+    age: 55.1,
+    malePct: 69,
+    charlson: 3.1,
+    baselinePHQ: 14.2,
+  },
+  {
+    stage: "6mo → 12mo",
+    n: 29,
+    age: 57.4,
+    malePct: 71,
+    charlson: 3.4,
+    baselinePHQ: 15.1,
+  },
+  {
+    stage: "Completers",
+    n: 149,
+    age: 48.9,
+    malePct: 58,
+    charlson: 2.1,
+    baselinePHQ: 11.4,
+  },
+];
+
+/* ── Spaghetti plot (50 PHQ-9 trajectories) ──────────────────────────────── */
+const S9_TRAJECTORIES = (() => {
+  const MCID = 5;
+  return Array.from({ length: 50 }, (_, i) => {
+    const base = Math.max(5, Math.min(27, s9gaussian(12.5, 4.5, i * 7 + 100)));
+    const finalChange = (s9rand(i, 50) - 0.35) * 14; // biased toward improvement
+    const final = Math.max(0, Math.min(27, base + finalChange));
+    const m3 = Math.max(
+      0,
+      Math.min(27, base + finalChange * 0.3 + (s9rand(i, 51) - 0.5) * 2),
+    );
+    const m6 = Math.max(
+      0,
+      Math.min(27, base + finalChange * 0.65 + (s9rand(i, 52) - 0.5) * 2),
+    );
+    const hasM3 = s9rand(i, 53) > 0.22;
+    const hasM6 = hasM3 && s9rand(i, 54) > 0.18;
+    const hasM12 = hasM6 && s9rand(i, 55) > 0.16;
+    const change = final - base;
+    const status =
+      change <= -MCID ? "improved" : change >= MCID ? "worsened" : "stable";
+    return {
+      id: i,
+      base,
+      values: [
+        base,
+        hasM3 ? m3 : null,
+        hasM6 ? m6 : null,
+        hasM12 ? final : null,
+      ],
+      status,
+    };
+  });
+})();
+
+/* ── Non-responder profile ───────────────────────────────────────────────── */
+const S9_RESPONDER_PROFILE = [
+  {
+    variable: "Mean age (years)",
+    responders: 49.3,
+    nonResponders: 56.1,
+    pValue: 0.003,
+    significant: true,
+  },
+  {
+    variable: "% male",
+    responders: 58,
+    nonResponders: 67,
+    pValue: 0.09,
+    significant: false,
+  },
+  {
+    variable: "Charlson Comorbidity Index",
+    responders: 2.1,
+    nonResponders: 3.4,
+    pValue: 0.001,
+    significant: true,
+  },
+  {
+    variable: "% with diabetes comorbidity",
+    responders: 35,
+    nonResponders: 62,
+    pValue: 0.001,
+    significant: true,
+  },
+  {
+    variable: "Mean baseline PHQ-9",
+    responders: 14.8,
+    nonResponders: 11.2,
+    pValue: 0.02,
+    significant: true,
+  },
+  {
+    variable: "% completing all 4 timepoints",
+    responders: 72,
+    nonResponders: 41,
+    pValue: 0.001,
+    significant: true,
+  },
+];
+
+/* ── D5 ADA Guideline sub-requirements ──────────────────────────────────── */
+const S9_ADA_GUIDELINES = [
+  {
+    id: "ADA-2024-001",
+    req: "HbA1c testing every 6 months",
+    pct: 88.2,
+    target: 90,
+  },
+  {
+    id: "ADA-2024-002",
+    req: "Annual eye exam referral",
+    pct: 71.2,
+    target: 80,
+  },
+  { id: "ADA-2024-003", req: "Annual foot examination", pct: 68.5, target: 80 },
+  {
+    id: "ADA-2024-004",
+    req: "Statin therapy for patients ≥40",
+    pct: 78.9,
+    target: 85,
+  },
+  {
+    id: "ADA-2024-005",
+    req: "Blood pressure monitoring each visit",
+    pct: 94.1,
+    target: 95,
+  },
+  {
+    id: "ADA-2024-006",
+    req: "eGFR/uACR annual screening",
+    pct: 62.4,
+    target: 75,
+  },
+  {
+    id: "ADA-2024-007",
+    req: "Depression screening (PHQ-9) annually",
+    pct: 57.8,
+    target: 75,
+  },
+  {
+    id: "ADA-2024-008",
+    req: "Smoking cessation counseling",
+    pct: 64.7,
+    target: 80,
+  },
+];
+
+/* ── D7 Cost waterfall ───────────────────────────────────────────────────── */
+const S9_COST_DATA = {
+  providerMean: 42800,
+  networkMean: 46200,
+  breakdown: [
+    { label: "Inpatient", amount: 23100, pct: 54, networkAmt: 25800 },
+    { label: "Outpatient Visits", amount: 7200, pct: 17, networkAmt: 7900 },
+    { label: "Pharmacy", amount: 6400, pct: 15, networkAmt: 6200 },
+    { label: "Laboratory", amount: 2800, pct: 7, networkAmt: 3100 },
+    { label: "Procedures", amount: 2100, pct: 5, networkAmt: 2400 },
+    { label: "ED Visits", amount: 1200, pct: 3, networkAmt: 1800 },
+  ],
+};
+
+/* ── Historical 8-period data for joinpoint/seasonality ─────────────────── */
+const S9_HISTORICAL = [
+  { period: "Q1 2024", score: 62.1, composite: 83 },
+  { period: "Q2 2024", score: 64.8, composite: 85 },
+  { period: "Q3 2024", score: 67.2, composite: 87 },
+  { period: "Q4 2024", score: 69.5, composite: 88 },
+  { period: "Q1 2025", score: 71.0, composite: 88 },
+  { period: "Q2 2025", score: 73.4, composite: 90 },
+  { period: "Q3 2025", score: 74.2, composite: 91 },
+  { period: "Q4 2025", score: 74.1, composite: 92 },
+];
+// Seasonality: Q1 always ~4pp lower than avg
+const S9_SEASONAL_DATA = {
+  Q1: [62.1, 71.0], // 2024, 2025 — consistently lower
+  Q2: [64.8, 73.4],
+  Q3: [67.2, 74.2],
+  Q4: [69.5, 74.1],
+};
+
+/* ── Exclusion criteria (D1-001) ─────────────────────────────────────────── */
+const S9_EXCLUSIONS = [
+  {
+    id: "EX-001",
+    desc: "Gestational diabetes (ICD-10 O24.x)",
+    n: 8,
+    pct: 2.1,
+    required: true,
+  },
+  {
+    id: "EX-002",
+    desc: "Hospice or palliative care enrolment",
+    n: 3,
+    pct: 0.8,
+    required: true,
+  },
+  {
+    id: "EX-003",
+    desc: "Enrolment < 90 days in measurement period",
+    n: 12,
+    pct: 3.1,
+    required: true,
+  },
+  {
+    id: "EX-004",
+    desc: "Age < 18 years at period end",
+    n: 0,
+    pct: 0.0,
+    required: true,
+  },
+  {
+    id: "EX-005",
+    desc: "No qualifying encounter in measurement period",
+    n: 24,
+    pct: 6.2,
+    required: false,
+  },
+];
+const S9_VENN = {
+  // EX-003 (12), EX-005 (24), EX-001 (8)
+  only003: 12,
+  only005: 20,
+  only001: 6,
+  both_003_005: 4,
+  both_005_001: 2,
+  both_003_001: 2,
+  all_three: 1,
+};
+const S9_EXCLUSION_SENSITIVITY = [
+  { label: "Current (all exclusions)", score: 74.1, den: 340, delta: 0 },
+  { label: "Remove EX-001", score: 73.5, den: 348, delta: -0.6 },
+  { label: "Remove EX-002", score: 73.8, den: 343, delta: -0.3 },
+  { label: "Remove EX-003", score: 72.4, den: 352, delta: -1.7 },
+  { label: "Remove EX-005", score: 67.2, den: 364, delta: -6.9 },
+  { label: "Remove ALL exclusions", score: 64.4, den: 387, delta: -9.7 },
+];
+
+/* ── Stratification data (D1-001 by age band) ────────────────────────────── */
+const S9_STRATIFICATION_AGE = [
+  {
+    group: "18–44",
+    n: 62,
+    score: 74.2,
+    ciLo: 62.1,
+    ciHi: 83.7,
+    delta: +6.3,
+    pValue: 0.18,
+    sig: false,
+  },
+  {
+    group: "45–54",
+    n: 98,
+    score: 71.4,
+    ciLo: 61.6,
+    ciHi: 79.6,
+    delta: +3.5,
+    pValue: 0.32,
+    sig: false,
+  },
+  {
+    group: "55–64",
+    n: 112,
+    score: 65.2,
+    ciLo: 55.8,
+    ciHi: 73.6,
+    delta: -2.7,
+    pValue: 0.41,
+    sig: false,
+  },
+  {
+    group: "65+",
+    n: 68,
+    score: 58.8,
+    ciLo: 46.6,
+    ciHi: 70.0,
+    delta: -9.1,
+    pValue: 0.04,
+    sig: true,
+  },
+];
+const S9_STRATIFICATION_GENDER = [
+  {
+    group: "Female",
+    n: 130,
+    score: 70.8,
+    ciLo: 62.4,
+    ciHi: 78.1,
+    delta: +2.9,
+    pValue: 0.28,
+    sig: false,
+  },
+  {
+    group: "Male",
+    n: 210,
+    score: 64.8,
+    ciLo: 57.9,
+    ciHi: 71.2,
+    delta: -3.1,
+    pValue: 0.21,
+    sig: false,
+  },
+];
+
+/* ── Inception cohort (L3-C) ─────────────────────────────────────────────── */
+const S9_COHORT = [
+  {
+    tp: "Baseline Q1 2025",
+    n: 95,
+    retained: 100,
+    completerMean: 8.4,
+    noncompleterMean: null,
+  },
+  {
+    tp: "3mo Q2 2025",
+    n: 82,
+    retained: 86.3,
+    completerMean: 8.0,
+    noncompleterMean: 9.1,
+  },
+  {
+    tp: "6mo Q3 2025",
+    n: 71,
+    retained: 74.7,
+    completerMean: 7.6,
+    noncompleterMean: 9.3,
+  },
+  {
+    tp: "12mo Q4 2025",
+    n: 58,
+    retained: 61.1,
+    completerMean: 7.2,
+    noncompleterMean: 9.6,
+  },
+];
+
+/* ── D3 Context (survey results) ─────────────────────────────────────────── */
+const S9_D3_SURVEY = {
+  responseRate: 72.4,
+  meanSatisfaction: 4.1,
+  strengths: [
+    "Clear communication of diagnosis and treatment plan",
+    "Provider availability and responsiveness to concerns",
+    "Respectful and dignified treatment at all visits",
+  ],
+  improvements: [
+    "Coordination between primary care and specialist referrals",
+    "Wait times for urgent appointments",
+    "Multilingual materials and interpreter availability",
+  ],
+};
+
+/* ── D9 Context (equity) ─────────────────────────────────────────────────── */
+const S9_D9_EQUITY = {
+  significantDisparities: 3,
+  findings: [
+    "HbA1c control rate is 9.1pp lower in patients aged 65+ (p=0.04)",
+    "Retinopathy screening completion is 14.2pp lower in rural facility catchment areas (p=0.01)",
+    "PHQ-9 follow-up visit rate is 18.6pp lower in patients with low SES proxy (p=0.002)",
+  ],
+};
+const DIM_SCORES_C1 = { D1: 95, D2: 90, D3: 88, D5: 91, D7: 94, D9: 90 };
+const DIM_COMPOSITES = { composite: 92, period: "Q4 2025", prevComposite: 91 };
+const CONTRACT1_DIMS = { D1: 30, D2: 20, D3: 10, D5: 15, D7: 15, D9: 10 };
+export {
+  S9_DIMENSIONS,
+  S9_ICHOM_SETS_D1,
+  S9_ICHOM_SETS_D2,
+  S9_PROMS_FUNNEL,
+  S9_FUNNEL_DROPOUT,
+  S9_TRAJECTORIES,
+  S9_RESPONDER_PROFILE,
+  S9_ADA_GUIDELINES,
+  S9_COST_DATA,
+  S9_HISTORICAL,
+  S9_SEASONAL_DATA,
+  S9_EXCLUSIONS,
+  S9_VENN,
+  S9_EXCLUSION_SENSITIVITY,
+  S9_STRATIFICATION_AGE,
+  S9_STRATIFICATION_GENDER,
+  S9_COHORT,
+  S9_D3_SURVEY,
+  S9_D9_EQUITY,
+  DIM_SCORES_C1,
+  DIM_COMPOSITES,
+  CONTRACT1_DIMS,
+};
+
 export const VBHC_DIMENSIONS = DIMENSIONS;
 export const VBHC_PROVIDERS = PROVIDERS;
 export const VBHC_CONTRACTS = CONTRACTS;

@@ -12,16 +12,17 @@ const items = [
     label: "Home",
   },
   {
-    href: "/ichom",
-    icon: Icons.ichom,
-    label: "ICHOM Sets",
-  },
-  {
-    id: "/framework",
-    href: "/framework",
+    id: "/value-framework",
+    href: "/value-framework",
     icon: Icons.framework,
     label: "Value Framework",
   },
+  // {
+  //   href: "/ichom",
+  //   icon: Icons.ichom,
+  //   label: "ICHOM Sets",
+  // },
+
   {
     id: "/org",
     icon: Icons.org,

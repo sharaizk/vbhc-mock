@@ -811,7 +811,7 @@ function GridView({ dims, onDimClick }) {
 
 /* ── Level 1 Landing Page ────────────────────────────────────────── */
 function VFLevel1({ onDimSelect, onNavigateToIchom }) {
-  const [mode, setMode] = useState("equation"); // "equation" | "grid"
+  const [mode, setMode] = useState("grid"); // "equation" | "grid"
   const [ichomModal, setIchomModal] = useState(null);
 
   const handleDimClick = useVCallback(

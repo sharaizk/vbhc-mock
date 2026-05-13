@@ -19,8 +19,8 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prototype App",
-  description: "Prototype application built with Next.js",
+  title: "ValueOS",
+  description: "ValueOS by AiQL",
 };
 
 export default function RootLayout({

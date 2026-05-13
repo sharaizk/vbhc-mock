@@ -1,5 +1,6 @@
 import { S8B_METHODOLOGY } from "@/mock/s8b-data";
 import React from "react";
+import { FullOverlay } from "./FullOverlay";
 const { useState: useL3aState, useMemo: useL3aMemo } = React;
 
 function L3AMethodology({ open, onClose, measure }) {

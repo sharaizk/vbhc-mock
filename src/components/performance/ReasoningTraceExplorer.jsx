@@ -6,6 +6,7 @@ import {
 } from "@/mock/performance";
 import React from "react";
 import { Icons } from "../Icons/Icons";
+import { FullOverlay, NodeDiagram, NodeInspector } from "./FullOverlay";
 const {
   useState: useTrState,
   useMemo: useTrMemo,

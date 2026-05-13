@@ -4,6 +4,7 @@ import {
   
 } from "@/mock/s8b-data";
 import React from "react";
+import { FullOverlay, NodeDiagram, NodeInspector } from "./FullOverlay";
 const {
   useState: useL3bcState,
   useMemo: useL3bcMemo,

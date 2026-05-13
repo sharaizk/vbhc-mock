@@ -1,0 +1,845 @@
+/* ============================================================================
+   ValueOS — Session 12: Provider Comparison & Tiering — Data
+   ============================================================================ */
+
+/* ── Distinguishable provider colors ─────────────────────────────────────── */
+const S12_COLORS = {
+  P01: "oklch(52% .11 200)",
+  P02: "oklch(62% .12 82)",
+  P03: "oklch(55% .18 10)",
+  P04: "oklch(45% .14 155)",
+  P05: "oklch(55% .15 280)",
+  P06: "oklch(56% .13 50)",
+  P07: "oklch(52% .13 230)",
+  P08: "oklch(48% .14 320)",
+  P09: "oklch(50% .12 185)",
+  P10: "oklch(44% .15 60)",
+  P11: "oklch(54% .11 160)",
+  P12: "oklch(50% .12 250)",
+  P13: "oklch(60% .13 95)",
+  P14: "oklch(52% .10 310)",
+  P15: "oklch(48% .14 200)",
+  P16: "oklch(55% .12 30)",
+  P17: "oklch(53% .11 270)",
+  P18: "oklch(47% .13 215)",
+  P19: "oklch(56% .10 130)",
+  P20: "oklch(44% .15 350)",
+};
+
+/* ── Extended provider list (20 providers) ───────────────────────────────── */
+const S12_PROVIDERS = [
+  // Original 10 from Session 8
+  {
+    id: "P01",
+    name: "Dr. Fatima Al-Khalil",
+    specialty: "Endocrinology",
+    facility: "PSMMC Riyadh",
+    tier: 1,
+    composite: 92,
+    panel: 340,
+    cred: "Active",
+  },
+  {
+    id: "P02",
+    name: "Dr. Omar Al-Rashidi",
+    specialty: "Internal Medicine",
+    facility: "PSMMC Riyadh",
+    tier: 1,
+    composite: 84,
+    panel: 520,
+    cred: "Active",
+  },
+  {
+    id: "P03",
+    name: "Dr. Nour Al-Zahrani",
+    specialty: "Family Medicine",
+    facility: "KFAFH Jeddah",
+    tier: 2,
+    composite: 78,
+    panel: 480,
+    cred: "Active",
+  },
+  {
+    id: "P04",
+    name: "Dr. Khalid Al-Mutairi",
+    specialty: "Cardiology",
+    facility: "PSMMC Riyadh",
+    tier: 2,
+    composite: 76,
+    panel: 290,
+    cred: "Active",
+  },
+  {
+    id: "P05",
+    name: "Dr. Sarah Al-Dosari",
+    specialty: "Psychiatry",
+    facility: "AFHO Dhahran",
+    tier: 2,
+    composite: 74,
+    panel: 310,
+    cred: "Active",
+  },
+  {
+    id: "P06",
+    name: "Dr. Mohammed Al-Harbi",
+    specialty: "Orthopedics",
+    facility: "KFAFH Jeddah",
+    tier: 2,
+    composite: 71,
+    panel: 260,
+    cred: "Active",
+  },
+  {
+    id: "P07",
+    name: "Dr. Layla Al-Qahtani",
+    specialty: "OB/GYN",
+    facility: "Al-Hada Taif",
+    tier: 2,
+    composite: 70,
+    panel: 195,
+    cred: "Active",
+  },
+  {
+    id: "P08",
+    name: "Dr. Ahmed Al-Shehri",
+    specialty: "General Surgery",
+    facility: "AFHSR Khamis Mushait",
+    tier: 3,
+    composite: 65,
+    panel: 230,
+    cred: "Active",
+  },
+  {
+    id: "P09",
+    name: "Dr. Hanan Al-Otaibi",
+    specialty: "Family Medicine",
+    facility: "AFHO Dhahran",
+    tier: 3,
+    composite: 62,
+    panel: 410,
+    cred: "Probation",
+  },
+  {
+    id: "P10",
+    name: "Dr. Youssef Al-Ghamdi",
+    specialty: "Internal Medicine",
+    facility: "AFHSR Khamis Mushait",
+    tier: 3,
+    composite: 55,
+    panel: 380,
+    cred: "Probation",
+  },
+  // 10 new providers
+  {
+    id: "P11",
+    name: "Dr. Reem Al-Dossary",
+    specialty: "Family Medicine",
+    facility: "PSMMC Riyadh",
+    tier: 2,
+    composite: 77,
+    panel: 450,
+    cred: "Active",
+  },
+  {
+    id: "P12",
+    name: "Dr. Tariq Al-Enazi",
+    specialty: "Endocrinology",
+    facility: "KFAFH Jeddah",
+    tier: 2,
+    composite: 73,
+    panel: 280,
+    cred: "Active",
+  },
+  {
+    id: "P13",
+    name: "Dr. Maha Al-Rubaian",
+    specialty: "Psychiatry",
+    facility: "PSMMC Riyadh",
+    tier: 1,
+    composite: 86,
+    panel: 310,
+    cred: "Active",
+  },
+  {
+    id: "P14",
+    name: "Dr. Faisal Al-Harthy",
+    specialty: "Internal Medicine",
+    facility: "AFHO Dhahran",
+    tier: 2,
+    composite: 75,
+    panel: 390,
+    cred: "Active",
+  },
+  {
+    id: "P15",
+    name: "Dr. Amira Al-Shahrani",
+    specialty: "OB/GYN",
+    facility: "PSMMC Riyadh",
+    tier: 2,
+    composite: 79,
+    panel: 210,
+    cred: "Active",
+  },
+  {
+    id: "P16",
+    name: "Dr. Sultan Al-Qahtani",
+    specialty: "Orthopedics",
+    facility: "AFHSR Khamis Mushait",
+    tier: 3,
+    composite: 63,
+    panel: 240,
+    cred: "Active",
+  },
+  {
+    id: "P17",
+    name: "Dr. Dalal Al-Mutairi",
+    specialty: "Family Medicine",
+    facility: "KFAFH Jeddah",
+    tier: 2,
+    composite: 74,
+    panel: 430,
+    cred: "Active",
+  },
+  {
+    id: "P18",
+    name: "Dr. Nawaf Al-Shammari",
+    specialty: "Cardiology",
+    facility: "AFHO Dhahran",
+    tier: 2,
+    composite: 72,
+    panel: 270,
+    cred: "Active",
+  },
+  {
+    id: "P19",
+    name: "Dr. Huda Al-Anazi",
+    specialty: "General Surgery",
+    facility: "PSMMC Riyadh",
+    tier: 2,
+    composite: 76,
+    panel: 220,
+    cred: "Active",
+  },
+  {
+    id: "P20",
+    name: "Dr. Badr Al-Zahrani",
+    specialty: "Internal Medicine",
+    facility: "Al-Hada Taif",
+    tier: 3,
+    composite: 61,
+    panel: 340,
+    cred: "Active",
+  },
+];
+
+/* ── Historical composite scores (4 periods Q1–Q4 2025) ─────────────────── */
+const S12_HISTORY = {
+  P01: [88, 89, 91, 92],
+  P02: [79, 81, 83, 84],
+  P03: [80, 79, 78, 78],
+  P04: [68, 71, 74, 76],
+  P05: [70, 71, 73, 74],
+  P06: [68, 69, 70, 71],
+  P07: [67, 68, 69, 70],
+  P08: [62, 63, 64, 65],
+  P09: [61, 61, 62, 62],
+  P10: [54, 54, 55, 55],
+  P11: [73, 74, 76, 77],
+  P12: [70, 71, 72, 73],
+  P13: [82, 83, 85, 86],
+  P14: [71, 72, 74, 75],
+  P15: [75, 76, 78, 79],
+  P16: [60, 61, 62, 63],
+  P17: [71, 72, 73, 74],
+  P18: [69, 70, 71, 72],
+  P19: [72, 73, 75, 76],
+  P20: [59, 60, 60, 61],
+};
+
+/* ── Case-mix profiles ───────────────────────────────────────────────────── */
+const S12_CASEMIX = {
+  P01: {
+    meanAge: 54.2,
+    charlson: 2.8,
+    bmi: 31.4,
+    depressionPct: 28,
+    lowSESPct: 15,
+  },
+  P02: {
+    meanAge: 51.8,
+    charlson: 2.3,
+    bmi: 29.8,
+    depressionPct: 22,
+    lowSESPct: 12,
+  },
+  P03: {
+    meanAge: 49.3,
+    charlson: 1.9,
+    bmi: 28.2,
+    depressionPct: 18,
+    lowSESPct: 8,
+  },
+  P04: {
+    meanAge: 58.7,
+    charlson: 3.6,
+    bmi: 30.1,
+    depressionPct: 35,
+    lowSESPct: 22,
+  },
+  P05: {
+    meanAge: 47.8,
+    charlson: 2.1,
+    bmi: 27.9,
+    depressionPct: 42,
+    lowSESPct: 14,
+  },
+  P06: {
+    meanAge: 52.4,
+    charlson: 2.5,
+    bmi: 30.8,
+    depressionPct: 20,
+    lowSESPct: 10,
+  },
+  P07: {
+    meanAge: 31.2,
+    charlson: 0.8,
+    bmi: 26.4,
+    depressionPct: 12,
+    lowSESPct: 9,
+  },
+  P08: {
+    meanAge: 53.1,
+    charlson: 2.4,
+    bmi: 29.2,
+    depressionPct: 21,
+    lowSESPct: 18,
+  },
+  P09: {
+    meanAge: 50.6,
+    charlson: 2.0,
+    bmi: 28.8,
+    depressionPct: 24,
+    lowSESPct: 11,
+  },
+  P10: {
+    meanAge: 55.3,
+    charlson: 2.7,
+    bmi: 30.5,
+    depressionPct: 26,
+    lowSESPct: 20,
+  },
+};
+const S12_CASEMIX_NETWORK = {
+  meanAge: 52.1,
+  charlson: 2.3,
+  bmi: 29.5,
+  depressionPct: 24,
+  lowSESPct: 13,
+};
+
+/* ── Risk-adjusted comparison (selected 4 providers) ─────────────────────── */
+const S12_RISK_ADJ = [
+  {
+    pid: "P01",
+    name: "Dr. Fatima Al-Khalil",
+    raw: 89,
+    adj: 92,
+    delta: +3,
+    rawRank: 1,
+    adjRank: 1,
+    rankChange: 0,
+  },
+  {
+    pid: "P02",
+    name: "Dr. Omar Al-Rashidi",
+    raw: 82,
+    adj: 84,
+    delta: +2,
+    rawRank: 2,
+    adjRank: 2,
+    rankChange: 0,
+  },
+  {
+    pid: "P03",
+    name: "Dr. Nour Al-Zahrani",
+    raw: 80,
+    adj: 78,
+    delta: -2,
+    rawRank: 3,
+    adjRank: 4,
+    rankChange: -1,
+  },
+  {
+    pid: "P04",
+    name: "Dr. Khalid Al-Mutairi",
+    raw: 72,
+    adj: 76,
+    delta: +4,
+    rawRank: 4,
+    adjRank: 3,
+    rankChange: +1,
+  },
+];
+
+/* ── O/E ratios ──────────────────────────────────────────────────────────── */
+const S12_OE = [
+  {
+    pid: "P01",
+    name: "Dr. Fatima",
+    oe: 1.12,
+    note: "Outperforming expectations by 12%",
+  },
+  {
+    pid: "P02",
+    name: "Dr. Omar",
+    oe: 1.05,
+    note: "Outperforming expectations by 5%",
+  },
+  {
+    pid: "P03",
+    name: "Dr. Nour",
+    oe: 0.97,
+    note: "Slightly below expectations (-3%)",
+  },
+  {
+    pid: "P04",
+    name: "Dr. Khalid",
+    oe: 1.08,
+    note: "Outperforming expectations by 8%",
+  },
+];
+
+/* ── Improvement velocity ────────────────────────────────────────────────── */
+const S12_VELOCITY = [
+  {
+    pid: "P01",
+    name: "Dr. Fatima Al-Khalil",
+    periods: [88, 89, 91, 92],
+    total: +4,
+    avgQtr: +1.33,
+    consistency: "Consistent ↑",
+  },
+  {
+    pid: "P02",
+    name: "Dr. Omar Al-Rashidi",
+    periods: [79, 81, 83, 84],
+    total: +5,
+    avgQtr: +1.67,
+    consistency: "Consistent ↑",
+  },
+  {
+    pid: "P03",
+    name: "Dr. Nour Al-Zahrani",
+    periods: [80, 79, 78, 78],
+    total: -2,
+    avgQtr: -0.67,
+    consistency: "Declining ↓",
+  },
+  {
+    pid: "P04",
+    name: "Dr. Khalid Al-Mutairi",
+    periods: [68, 71, 74, 76],
+    total: +8,
+    avgQtr: +2.67,
+    consistency: "Accelerating ↑↑",
+  },
+];
+
+/* ── Projected time to target ─────────────────────────────────────────────── */
+const S12_TIME_TO_TARGET = [
+  {
+    pid: "P04",
+    name: "Dr. Khalid",
+    current: 76,
+    rate: +2.7,
+    note: "Crossed target in Q3 2025",
+    crossedAt: "Q3 2025",
+    quartersAway: 0,
+  },
+  {
+    pid: "P08",
+    name: "Dr. Ahmed",
+    current: 65,
+    rate: +1.2,
+    note: "Projected to reach target in Q2 2027",
+    quartersAway: 8,
+  },
+  {
+    pid: "P09",
+    name: "Dr. Hanan",
+    current: 62,
+    rate: +0.5,
+    note: "Projected Q1 2029 — CAP recommended",
+    quartersAway: 26,
+  },
+  {
+    pid: "P10",
+    name: "Dr. Youssef",
+    current: 55,
+    rate: +0.2,
+    note: "Not achievable at current trajectory",
+    quartersAway: 99,
+  },
+];
+
+/* ── Statistical significance matrix ─────────────────────────────────────── */
+const S12_STAT_MATRIX = [
+  { p1: "P01", p2: "P02", delta: 8, p: 0.02, sig: true, effect: "moderate" },
+  { p1: "P01", p2: "P03", delta: 14, p: 0.001, sig: true, effect: "large" },
+  { p1: "P01", p2: "P04", delta: 16, p: 0.001, sig: true, effect: "large" },
+  { p1: "P02", p2: "P03", delta: 6, p: 0.08, sig: false, effect: "small" },
+  { p1: "P02", p2: "P04", delta: 8, p: 0.03, sig: true, effect: "moderate" },
+  { p1: "P03", p2: "P04", delta: 2, p: 0.64, sig: false, effect: "negligible" },
+];
+
+/* ── Shrinkage estimation ─────────────────────────────────────────────────── */
+const S12_SHRINKAGE = [
+  {
+    pid: "P07",
+    name: "Dr. Layla Al-Qahtani",
+    panel: 195,
+    raw: 70,
+    shrunk: 72.4,
+    delta: +2.4,
+    rankChange: "Unchanged",
+  },
+  {
+    pid: "P06",
+    name: "Dr. Mohammed Al-Harbi",
+    panel: 260,
+    raw: 71,
+    shrunk: 72.1,
+    delta: +1.1,
+    rankChange: "Unchanged",
+  },
+  {
+    pid: "P08",
+    name: "Dr. Ahmed Al-Shehri",
+    panel: 230,
+    raw: 65,
+    shrunk: 67.2,
+    delta: +2.2,
+    rankChange: "Unchanged",
+  },
+  {
+    pid: "P01",
+    name: "Dr. Fatima Al-Khalil",
+    panel: 340,
+    raw: 92,
+    shrunk: 91.6,
+    delta: -0.4,
+    rankChange: "Unchanged",
+  },
+  {
+    pid: "P09",
+    name: "Dr. Hanan Al-Otaibi",
+    panel: 410,
+    raw: 62,
+    shrunk: 62.3,
+    delta: +0.3,
+    rankChange: "Unchanged",
+  },
+];
+
+/* ── Tiering thresholds ───────────────────────────────────────────────────── */
+const S12_TIER_DEFAULTS = { tier1: 85, tier2lower: 70 };
+
+/* ── Tier movements (Q3→Q4 2025) ─────────────────────────────────────────── */
+const S12_TIER_MOVEMENTS = [
+  {
+    pid: "P04",
+    name: "Dr. Khalid Al-Mutairi",
+    from: "Tier 3",
+    to: "Tier 2",
+    period: "Q4 2025",
+    reason: "Composite improved from 68→76, all mandatory criteria met",
+  },
+];
+
+/* ── Historical tier distribution (4 periods) ───────────────────────────── */
+const S12_TIER_HISTORY = [
+  { period: "Q1 2025", t1: 2, t2: 4, t3: 4 },
+  { period: "Q2 2025", t1: 2, t2: 4, t3: 4 },
+  { period: "Q3 2025", t1: 2, t2: 4, t3: 4 },
+  { period: "Q4 2025", t1: 2, t2: 5, t3: 3 },
+];
+
+/* ── Network adequacy data ────────────────────────────────────────────────── */
+const S12_NETWORK_ADEQUACY = [
+  {
+    specialty: "Family Medicine",
+    facility: "PSMMC Riyadh",
+    t1: 0,
+    t2plus: 1,
+    total: 1,
+    members: 520,
+    ratio: "1:520",
+    standard: "1:500",
+    status: "marginal",
+  },
+  {
+    specialty: "Family Medicine",
+    facility: "AFHO Dhahran",
+    t1: 0,
+    t2plus: 0,
+    total: 1,
+    members: 410,
+    ratio: "1:410",
+    standard: "1:500",
+    status: "ok",
+  },
+  {
+    specialty: "Family Medicine",
+    facility: "KFAFH Jeddah",
+    t1: 0,
+    t2plus: 2,
+    total: 2,
+    members: 910,
+    ratio: "1:455",
+    standard: "1:500",
+    status: "ok",
+  },
+  {
+    specialty: "Endocrinology",
+    facility: "PSMMC Riyadh",
+    t1: 1,
+    t2plus: 0,
+    total: 1,
+    members: 340,
+    ratio: "1:340",
+    standard: "1:500",
+    status: "ok",
+  },
+  {
+    specialty: "Endocrinology",
+    facility: "KFAFH Jeddah",
+    t1: 0,
+    t2plus: 1,
+    total: 1,
+    members: 280,
+    ratio: "1:280",
+    standard: "1:500",
+    status: "ok",
+  },
+  {
+    specialty: "Internal Medicine",
+    facility: "PSMMC Riyadh",
+    t1: 1,
+    t2plus: 0,
+    total: 1,
+    members: 520,
+    ratio: "1:520",
+    standard: "1:500",
+    status: "marginal",
+  },
+  {
+    specialty: "Internal Medicine",
+    facility: "AFHSR Khamis Mushait",
+    t1: 0,
+    t2plus: 0,
+    total: 1,
+    members: 380,
+    ratio: "1:380",
+    standard: "1:500",
+    status: "critical",
+  },
+  {
+    specialty: "Cardiology",
+    facility: "PSMMC Riyadh",
+    t1: 0,
+    t2plus: 1,
+    total: 1,
+    members: 290,
+    ratio: "1:290",
+    standard: "1:400",
+    status: "ok",
+  },
+  {
+    specialty: "All Specialties",
+    facility: "AFHSR Khamis Mushait",
+    t1: 0,
+    t2plus: 0,
+    total: 3,
+    members: 850,
+    ratio: "1:283",
+    standard: "—",
+    status: "critical",
+  },
+  {
+    specialty: "Psychiatry",
+    facility: "PSMMC Riyadh+Dhahran",
+    t1: 1,
+    t2plus: 1,
+    total: 2,
+    members: 620,
+    ratio: "1:310",
+    standard: "1:600",
+    status: "ok",
+  },
+];
+
+/* ── Benefit design tiers ─────────────────────────────────────────────────── */
+const S12_BENEFIT_DESIGN = [
+  {
+    tier: "Tier 1",
+    copay: 50,
+    coinsurance: 10,
+    members: 860,
+    memberPct: 28.7,
+    cost: 18200000,
+    costPerMember: 21163,
+  },
+  {
+    tier: "Tier 2",
+    copay: 100,
+    coinsurance: 20,
+    members: 1555,
+    memberPct: 51.8,
+    cost: 38600000,
+    costPerMember: 24823,
+  },
+  {
+    tier: "Tier 3",
+    copay: 200,
+    coinsurance: 30,
+    members: 585,
+    memberPct: 19.5,
+    cost: 16800000,
+    costPerMember: 28718,
+  },
+  {
+    tier: "Out-of-Network",
+    copay: 500,
+    coinsurance: 50,
+    members: 0,
+    memberPct: 0,
+    cost: 0,
+    costPerMember: 0,
+  },
+];
+
+/* ── Geographic facilities ────────────────────────────────────────────────── */
+const S12_FACILITIES = [
+  {
+    name: "PSMMC Riyadh",
+    providers: ["P01", "P02", "P04", "P11", "P13", "P15", "P19"],
+    region: "Riyadh",
+    status: "strong",
+  },
+  {
+    name: "KFAFH Jeddah",
+    providers: ["P03", "P06", "P12", "P17"],
+    region: "Jeddah",
+    status: "amber",
+  },
+  {
+    name: "AFHO Dhahran",
+    providers: ["P05", "P09", "P14", "P18"],
+    region: "Dhahran",
+    status: "amber",
+  },
+  {
+    name: "AFHSR Khamis Mushait",
+    providers: ["P08", "P10", "P16"],
+    region: "Khamis",
+    status: "critical",
+  },
+  {
+    name: "Al-Hada Taif",
+    providers: ["P07", "P20"],
+    region: "Taif",
+    status: "amber",
+  },
+];
+
+/* ── Peer group sensitivity scenarios ────────────────────────────────────── */
+const S12_PEER_SCENARIOS = [
+  {
+    label: "Same contract (current)",
+    size: 10,
+    rankings: { P01: 1, P02: 2, P03: 3, P04: 4 },
+  },
+  {
+    label: "Same contract, primary care specialties",
+    size: 6,
+    rankings: { P01: 1, P02: 2, P03: 2, P04: null },
+  },
+  {
+    label: "Same contract, panel ≥300",
+    size: 6,
+    rankings: { P01: 1, P02: 2, P03: 2, P04: null },
+  },
+  {
+    label: "Same contract, Charlson within ±0.5",
+    size: 4,
+    rankings: { P01: 1, P02: 2, P03: 3, P04: null },
+  },
+];
+
+/* ── Homogeneity stats for peer group validation ─────────────────────────── */
+const S12_HOMOGENEITY = [
+  {
+    variable: "Mean Age",
+    min: 49.3,
+    max: 58.7,
+    cv: 6.2,
+    status: "ok",
+    note: "Acceptable homogeneity",
+  },
+  {
+    variable: "Charlson",
+    min: 1.9,
+    max: 3.6,
+    cv: 22.1,
+    status: "high",
+    note: "HIGH VARIABILITY — comorbidity burden differs substantially",
+  },
+  {
+    variable: "Panel Size",
+    min: 195,
+    max: 520,
+    cv: 28.4,
+    status: "high",
+    note: "HIGH VARIABILITY — panel sizes vary by 2.7×",
+  },
+  {
+    variable: "BMI",
+    min: 28.2,
+    max: 31.4,
+    cv: 4.1,
+    status: "ok",
+    note: "Acceptable homogeneity",
+  },
+];
+
+/* ── Funnel plot — funnel limit computation ──────────────────────────────── */
+function funnelLimits(n: any, networkMean = 72, multiplier = 1.96) {
+  const p = networkMean / 100;
+  const se = Math.sqrt((p * (1 - p)) / n) * 100;
+  return {
+    lo: networkMean - multiplier * se,
+    hi: networkMean + multiplier * se,
+  };
+}
+
+export {
+  S12_BENEFIT_DESIGN,
+  S12_COLORS,
+  S12_PROVIDERS,
+  S12_HISTORY,
+  S12_CASEMIX,
+  S12_CASEMIX_NETWORK,
+  S12_RISK_ADJ,
+  S12_OE,
+  S12_VELOCITY,
+  S12_TIME_TO_TARGET,
+  S12_STAT_MATRIX,
+  S12_SHRINKAGE,
+  S12_TIER_DEFAULTS,
+  S12_TIER_HISTORY,
+  S12_NETWORK_ADEQUACY,
+  S12_FACILITIES,
+  S12_PEER_SCENARIOS,
+  S12_HOMOGENEITY,
+  funnelLimits,
+};

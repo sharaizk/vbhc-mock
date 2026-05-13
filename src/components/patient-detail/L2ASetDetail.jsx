@@ -1,6 +1,6 @@
 import React from "react";
 import { Icons } from "../Icons/Icons";
-import { S10_COST_BREAKDOWN, S10_MONTHLY_COSTS } from "@/mock/patient-details";
+import { S10_COST_BREAKDOWN, S10_DIABETES_OUTCOMES, S10_MONTHLY_COSTS } from "@/mock/patient-details";
 import { setColor } from "./PatientHeader";
 const { useState } = React;
 

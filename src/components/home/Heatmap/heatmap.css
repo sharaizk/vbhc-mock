@@ -6,8 +6,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 18px;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
 }
 .hm-head .crumb {
   font: 500 10px/1 var(--font-mono);
@@ -28,6 +29,7 @@
 }
 
 .hm-legend {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4px 14px;
@@ -38,6 +40,7 @@
   align-self: flex-start;
 }
 .hm-legend .lg-lbl {
+  width: 100%;
   grid-column: 1 / -1;
   font: 500 9px/1 var(--font-mono);
   color: var(--fg-tertiary);

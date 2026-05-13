@@ -1282,7 +1282,7 @@ function ProviderTiering({
               textTransform: "uppercase",
             }}
           >
-            Module 3 · Provider Performance
+            Provider Performance
           </div>
           <h1
             style={{

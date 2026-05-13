@@ -120,7 +120,7 @@ export default function Overview({ set, deep, domainTally }) {
         , version{" "}
         <strong style={{ color: "var(--fg-primary)" }}>{set.version}</strong>,
         published {set.year}. Read-only; managed by the ICHOM pipeline. Activate
-        / deactivate from the Admin Module 1.1 surface.
+        / deactivate from the Admin surface.
       </div>
     </>
   );

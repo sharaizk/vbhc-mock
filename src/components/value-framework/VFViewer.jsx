@@ -844,7 +844,7 @@ function VFLevel1({ onDimSelect, onNavigateToIchom }) {
               marginBottom: 10,
             }}
           >
-            MODULE 3 · VALUE ARCHITECTURE
+            VALUE ARCHITECTURE
           </div>
           <h1
             style={{

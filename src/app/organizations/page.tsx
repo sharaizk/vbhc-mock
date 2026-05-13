@@ -64,9 +64,7 @@ export default function Ichom() {
     <>
       <div className="page-head">
         <div>
-          <div className="crumb">
-            Module 1 · Organization &amp; Provider Registry
-          </div>
+          <div className="crumb">Organization &amp; Provider Registry</div>
           <h1>Organization &amp; Provider Registry</h1>
           {t.showHeaderDesc && (
             <p className="desc">

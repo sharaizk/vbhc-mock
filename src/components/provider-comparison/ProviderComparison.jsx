@@ -1,6 +1,21 @@
-import { S12_PROVIDERS, S12_COLORS, S12_HISTORY, S12_RISK_ADJ, S12_OE, S12_CASEMIX, S12_CASEMIX_NETWORK, S12_VELOCITY, S12_TIME_TO_TARGET } from "@/mock/provider-comparison";
+import {
+  S12_PROVIDERS,
+  S12_COLORS,
+  S12_HISTORY,
+  S12_RISK_ADJ,
+  S12_OE,
+  S12_CASEMIX,
+  S12_CASEMIX_NETWORK,
+  S12_VELOCITY,
+  S12_TIME_TO_TARGET,
+} from "@/mock/provider-comparison";
 import React from "react";
-import { MultiLineChart, MultiRadar, OERatioChart, QuadrantScatter } from "./Charts";
+import {
+  MultiLineChart,
+  MultiRadar,
+  OERatioChart,
+  QuadrantScatter,
+} from "./Charts";
 const { useState: useS12CState, useMemo: useS12CMemo } = React;
 
 /* ── Dimensions for Contract 1 radar ──────────────────────────────────────── */
@@ -1374,7 +1389,7 @@ function ProviderComparison({
               textTransform: "uppercase",
             }}
           >
-            Module 3 · Provider Performance
+            Provider Performance
           </div>
           <h1
             style={{

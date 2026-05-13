@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { VF_DIMENSIONS, VF_ROLE_COLORS } from "@/mock/value-framework";
 // vf-viewer.jsx — Level 1 Framework Overview + navigation shell
 import React from "react";
@@ -847,7 +847,7 @@ function VFLevel1({ onDimSelect, onNavigateToIchom }) {
               marginBottom: 10,
             }}
           >
-            MODULE 3 · VALUE ARCHITECTURE
+            VALUE ARCHITECTURE
           </div>
           <h1
             style={{

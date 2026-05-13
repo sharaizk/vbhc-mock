@@ -56,7 +56,7 @@ export default function IchomPage() {
     <>
       <div className="page-head">
         <div>
-          <div className="crumb">MODULE 1.1 · ADMIN</div>
+          <div className="crumb">ADMIN</div>
           <h1>ICHOM Standard Sets</h1>
           <p className="desc">
             Browse the 46 ICHOM Standard Sets in the AiQL pipeline. Each Set

@@ -33,7 +33,7 @@ export default function Framework() {
     <>
       <header className="page-head">
         <div>
-          <div className="crumb">Module 1.2 · Value Framework</div>
+          <div className="crumb">Value Framework</div>
           <h1>The 10 dimensions of value</h1>
           <p className="desc">
             The framework is the same for every contract. Eight domain pillars
